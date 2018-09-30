@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TradingJournal
+namespace intf.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainNavigationView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainNavigationView : UserControl
     {
-        public MainWindow()
+        public MainNavigationView()
         {
             InitializeComponent();
         }

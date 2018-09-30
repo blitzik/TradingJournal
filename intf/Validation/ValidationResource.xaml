@@ -1,0 +1,58 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:validation="clr-namespace:Common.Validation;assembly=Common">
+
+    <Style TargetType="{x:Type TextBox}" x:Key="ValidatedTextBox">
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <Border>
+                            <Border.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ErrorContent.Severity}" Value="{x:Static validation:Severity.INFO}">
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Setter Property="BorderBrush" Value="#3498db" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ErrorContent.Severity}" Value="{x:Static validation:Severity.WARNING}">
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Setter Property="BorderBrush" Value="#f39c12" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ErrorContent.Severity}" Value="{x:Static validation:Severity.ERROR}">
+                                            <Setter Property="BorderThickness" Value="1" />
+                                            <Setter Property="BorderBrush" Value="#e74c3c" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Resources>
+                            <AdornedElementPlaceholder />
+                        </Border>
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ErrorContent.Message}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="Foreground" Value="#e74c3c" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ErrorContent.Severity}" Value="{x:Static validation:Severity.INFO}">
+                                                        <Setter Property="Foreground" Value="#3498db" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ErrorContent.Severity}" Value="{x:Static validation:Severity.WARNING}">
+                                                        <Setter Property="Foreground" Value="#f39c12" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

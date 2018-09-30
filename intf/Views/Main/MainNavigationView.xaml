@@ -1,0 +1,179 @@
+﻿<UserControl x:Class="intf.Views.MainNavigationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:intf.Views"
+             xmlns:converters="clr-namespace:intf.Converters"
+             xmlns:b="clr-namespace:Common.Behaviors;assembly=Common"
+             xmlns:c="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="200">
+
+    <UserControl.Resources>
+        <converters:ViewModelToBooleanConverter x:Key="ViewModelToBooleanConverter" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <converters:NegateBoolConverter x:Key="NegateBoolConverter" />
+    </UserControl.Resources>
+
+    <Grid Name="TopElement">
+        <!-- Main navigation -->
+        <StackPanel Grid.Row="0" Name="MainNavigation">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type RadioButton}">
+                    <Setter Property="Background" Value="#263238" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Foreground" Value="#FFF" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type RadioButton}">
+                                <Border x:Name="radioButtonBorder" Padding="10 15" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                    <ContentPresenter x:Name="contentPresenter"  Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="HasContent" Value="true">
+                                        <Setter Property="Padding" Value="4,-1,0,0" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" TargetName="radioButtonBorder" Value="#1F26A0DA" />
+                                        <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="#1F26A0DA" />
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Background" TargetName="radioButtonBorder" Value="#1ABC9C" />
+                                        <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="#1ABC9C" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="true">
+                                        <Setter Property="Background" TargetName="radioButtonBorder" Value="#1F26A0DA" />
+                                        <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="#1F26A0DA" />
+                                    </Trigger>
+                                    <Trigger Property="IsChecked" Value="true">
+                                        <Setter Property="Background" TargetName="radioButtonBorder" Value="#1ABC9C" />
+                                    </Trigger>
+                                    <Trigger Property="IsChecked" Value="{x:Null}">
+
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style TargetType="{x:Type StackPanel}">
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <ScaleTransform />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Width" Value="200" />
+                    <Setter Property="HorizontalAlignment" Value="Left" />
+                </Style>
+            </StackPanel.Resources>
+
+            <RadioButton x:Name="DisplayListingsOverview" Grid.Row="0" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=ListingsOverviewViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="17" Height="17" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource ListIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="15 2 0 0" Text="Přehled výčetek" />
+                </StackPanel>
+            </RadioButton>
+            <RadioButton x:Name="DisplayListingCreation" Grid.Row="1" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=ListingViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="17" Height="17" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource NewFileIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="15 3 0 0" Text="Nová výčetka" />
+                </StackPanel>
+            </RadioButton>
+            <RadioButton x:Name="DisplayEmployersList" Grid.Row="2" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=EmployersViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="17" Height="17" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource MoneyIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="15 3 0 0" Text="Správa zaměstnavatelů" />
+                </StackPanel>
+            </RadioButton>
+            <RadioButton x:Name="DisplaySettings" Grid.Row="3" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=SettingsViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="17" Height="17" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource SettingsIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="15 1 0 0" Text="Nastavení" />
+                </StackPanel>
+            </RadioButton>
+            <RadioButton x:Name="DisplayEmptyListingsGeneration" Grid.Row="3" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=EmptyListingsGenerationViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="17" Height="17" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource EmptyFileIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="15 1 0 0" Text="Prázdné výčetky" />
+                </StackPanel>
+            </RadioButton>
+        </StackPanel>
+
+        <!-- Second Navigation -->
+        <Border Margin="38 0 0 0"
+                b:AnimateableVisibility.Visibility="{Binding IsSecondNavigationActive, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=reversed}"
+                b:AnimateableVisibility.Duration="350">
+            <Border.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="RenderTransformOrigin" Value="1,1" />
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStop Color="#485f6b" Offset="0"/>
+                                <GradientStop Color="#263238" Offset="0.8"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSecondNavigationActive}" Value="True">
+                            <DataTrigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="B" />
+                                <BeginStoryboard Name="A">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" From=".6" To="1" Duration="0:0:.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsSecondNavigationActive}" Value="False">
+                            <DataTrigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="A" />
+                                <BeginStoryboard Name="B">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX" From="1" To="0" Duration="0:0:.125" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Resources>
+
+            <ContentControl c:View.Model="{Binding SecondNavigation}">
+                <b:ContentControlExtension.Storyboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From=".4" To="1" Duration="0:0:.350" />
+                    </Storyboard>
+                </b:ContentControlExtension.Storyboard>
+            </ContentControl>
+        </Border>
+    </Grid>
+    
+</UserControl>
