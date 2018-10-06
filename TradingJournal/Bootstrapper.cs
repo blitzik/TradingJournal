@@ -13,19 +13,16 @@ using intf.Views;
 using System.Threading;
 using prjt.Services;
 using prjt.Services.IO;
-using prjt.Services.Pdf;
-using prjt.Services.Backup;
-using prjt.Services.Entities;
 using prjt.Facades;
 using prjt.Domain;
 using Perst;
 using intf.BaseViewModels;
-using intf.Factories.Employers;
 using intf.Subscribers;
 using Common.Utils.ResultObject;
 using Common.Overlay;
+using prjt.Services.Identity;
 
-namespace Evidoo
+namespace TradingJournal
 {
     public class Bootstrapper : BootstrapperBase
     {
@@ -66,17 +63,19 @@ namespace Evidoo
             _container.Singleton<IOverlay, Overlay>();
 
             // Services
+            _container.Singleton<IIdentity, Identity>();
             _container.Singleton<PerstStorageFactory>();
             _container.Singleton<StoragePool>();
             _container.Singleton<IIODialogService, FilePathDialogService>();
-            _container.Singleton<IBackupImport, BackupImport>();
 
             // facades
+            _container.Singleton<AccountFacade>();
 
             // Windows
             _container.Singleton<MainWindowViewModel>();
 
             // ViewModels
+            _container.PerRequest<NewAccountViewModel>();
 
             // Subscribers
         }
@@ -84,27 +83,27 @@ namespace Evidoo
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            if (!mutex.WaitOne(TimeSpan.FromSeconds(1), false)) {
+            /*if (!mutex.WaitOne(TimeSpan.FromSeconds(1), false)) {
                 System.Windows.Application.Current.Shutdown();
-            }
+            }*/
 
             ResultObject<object> ro = new ResultObject<object>(true);
             try {
-                Storage db = _container.GetInstance<PerstStorageFactory>().OpenConnection(PerstStorageFactory.MAIN_DATABASE_NAME);
+                Storage profilesStorage = _container.GetInstance<PerstStorageFactory>().OpenConnection<AccountsRoot>(DatabaseNames.ACCOUNTS);
                 StoragePool sp = _container.GetInstance<StoragePool>();
-                sp.Add(PerstStorageFactory.MAIN_DATABASE_NAME, db);
+                sp.Add(DatabaseNames.ACCOUNTS, profilesStorage);
+
+                AccountsRoot profilesRoot = (AccountsRoot)profilesStorage.Root;
 
                 var vm = _container.GetInstance<MainWindowViewModel>();
                 _container.BuildUp(vm);
                 _container.GetInstance<IWindowManager>().ShowWindow(vm);
 
-            }
-            catch (StorageError ex) {
+            } catch (StorageError ex) {
                 ro = new ResultObject<object>(false);
                 ro.AddMessage("Nelze načíst Vaše data.");
 
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ro = new ResultObject<object>(false);
                 ro.AddMessage("Při spouštění aplikace došlo k neočekávané chybě");
             }
@@ -120,7 +119,7 @@ namespace Evidoo
         protected override void OnExit(object sender, EventArgs e)
         {
             _container.GetInstance<StoragePool>().CloseAll();
-            mutex.ReleaseMutex();
+            //mutex.ReleaseMutex();
         }
 
 

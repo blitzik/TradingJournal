@@ -49,31 +49,31 @@ namespace intf.Views
 
         public void DisplayListingsOverview()
         {
-            EventAggregator.PublishOnUIThread(new ChangeViewMessage<ListingsOverviewViewModel>());
+            //EventAggregator.PublishOnUIThread(new ChangeViewMessage<ListingsOverviewViewModel>());
         }
 
 
         public void DisplayListingCreation()
         {
-            EventAggregator.PublishOnUIThread(new ChangeViewMessage<ListingViewModel>());
+            //EventAggregator.PublishOnUIThread(new ChangeViewMessage<ListingViewModel>());
         }
 
 
         public void DisplayEmployersList()
         {
-            EventAggregator.PublishOnUIThread(new ChangeViewMessage<EmployersViewModel>());
+            //EventAggregator.PublishOnUIThread(new ChangeViewMessage<EmployersViewModel>());
         }
 
 
         public void DisplaySettings()
         {
-            EventAggregator.PublishOnUIThread(new ChangeViewMessage<SettingsViewModel>());
+            //EventAggregator.PublishOnUIThread(new ChangeViewMessage<SettingsViewModel>());
         }
 
 
         public void DisplayEmptyListingsGeneration()
         {
-            EventAggregator.PublishOnUIThread(new ChangeViewMessage<EmptyListingsGenerationViewModel>());
+            //EventAggregator.PublishOnUIThread(new ChangeViewMessage<EmptyListingsGenerationViewModel>());
         }
     }
 }

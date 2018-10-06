@@ -78,11 +78,15 @@
   <ItemGroup>
     <Compile Include="Comparers\SortIntDescending.cs" />
     <Compile Include="Domain\PageTitle.cs" />
+    <Compile Include="Domain\Account.cs" />
     <Compile Include="Exceptions\InvalidStateException.cs" />
+    <Compile Include="Facades\AccountFacade.cs" />
     <Compile Include="Facades\BaseFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Backup\BackupImport.cs" />
-    <Compile Include="Services\Backup\IBackupImport.cs" />
+    <Compile Include="Services\AccountsRoot.cs" />
+    <Compile Include="Services\Identity\Identity.cs" />
+    <Compile Include="Services\Identity\IIdentity.cs" />
+    <Compile Include="Services\DatabaseNames.cs" />
     <Compile Include="Services\IO\FilePathDialogService.cs" />
     <Compile Include="Services\IO\IIODialogService.cs" />
     <Compile Include="Services\PerstStorageFactory.cs" />

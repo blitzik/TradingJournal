@@ -1,10 +1,14 @@
-﻿using prjt.Domain;
-using Perst;
+﻿using Perst;
+using prjt.Domain;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace prjt.Services
 {
-    public class Root : Perst.Persistent
+    public class Root : Persistent
     {
         
 
@@ -13,5 +17,6 @@ namespace prjt.Services
         {
             
         }
+
     }
 }

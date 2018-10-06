@@ -19,21 +19,15 @@ namespace prjt.Facades
         }
 
 
-        public Storage Storage(string name = null)
+        protected Storage Storage(string name = null)
         {
-            if (string.IsNullOrEmpty(name)) {
-                return StoragePool.GetByName(PerstStorageFactory.MAIN_DATABASE_NAME);
-            }
             return StoragePool.GetByName(name);
         }
 
 
-        public Root Root(string name = null)
+        protected TRoot Root<TRoot>(string name = null)
         {
-            if (string.IsNullOrEmpty(name)) {
-                return (Root)StoragePool.GetByName(PerstStorageFactory.MAIN_DATABASE_NAME).Root;
-            }
-            return (Root)StoragePool.GetByName(name).Root;
+            return (TRoot)StoragePool.GetByName(name).Root;
         }
     }
 }

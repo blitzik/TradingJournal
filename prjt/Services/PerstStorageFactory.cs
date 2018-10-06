@@ -1,4 +1,5 @@
 ﻿using Perst;
+using prjt.Domain;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,9 +11,7 @@ namespace prjt.Services
 {
     public class PerstStorageFactory
     {
-        public const string DATABASE_EXTENSION = "evdo";
-        public const string MAIN_DATABASE_NAME = "data";
-        public const string MAIN_DATABASE_FILE_NAME = MAIN_DATABASE_NAME + "." + DATABASE_EXTENSION;
+        public const string DATABASE_EXTENSION = "tjd";
 
 
         public PerstStorageFactory()
@@ -20,14 +19,14 @@ namespace prjt.Services
         }
 
 
-        public Storage OpenConnection(string databaseName)
+        public Storage OpenConnection<TRoot>(string databaseName, int pageSize = 4 * 1024 * 1024)
         {
             Storage db = StorageFactory.Instance.CreateStorage();
-            db.Open(Path.Combine(GetDatabaseDirectoryPath(), string.Format("{0}.{1}", databaseName, DATABASE_EXTENSION)), 4 * 1024 * 1024);
+            db.Open(Path.Combine(GetDatabaseDirectoryPath(), string.Format("{0}.{1}", databaseName, DATABASE_EXTENSION)), pageSize);
 
-            Root root = db.Root as Root;
-            if (root == null) {
-                root = new Root(db);
+            TRoot root;
+            if (db.Root == null) {
+                root = (TRoot)Activator.CreateInstance(typeof(TRoot), db);
                 db.Root = root;
             }
 
@@ -37,7 +36,7 @@ namespace prjt.Services
 
         public static string GetDatabaseDirectoryPath()
         {
-            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "_evidooApp");
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "_tradingJournal");
             if (!Directory.Exists(path)) {
                 Directory.CreateDirectory(path);
             }

@@ -1,4 +1,5 @@
 ﻿using prjt.Domain;
+using prjt.Services.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,15 @@ namespace intf.BaseViewModels
                 _baseWindowTitle = value;
                 WindowTitle.Text = value;
             }
+        }
+
+
+        // property injection
+        private IIdentity _identity;
+        public IIdentity Identity
+        {
+            get { return _identity; }
+            set { Set(ref _identity, value); }
         }
 
 

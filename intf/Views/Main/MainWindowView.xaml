@@ -46,13 +46,19 @@
                     </Setter>
                 </Style>
             </Grid.Resources>
-            <ContentControl Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" c:View.Model="{Binding Overlay.Token.Content, UpdateSourceTrigger=PropertyChanged}" />
+            <ContentControl Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" c:View.Model="{Binding OverlayViewModel, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
 
-        <!-- APP's name -->
+        <!-- Accounts' names -->
         <Border Grid.Row="0" Grid.Column="0" Background="#3498db">
-            <TextBlock Text="Evidoo" FontSize="19" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFF" />
+            <ComboBox ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedAccount, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Border>
 
 
