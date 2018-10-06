@@ -1,4 +1,5 @@
 ﻿using Common.Commands;
+using Common.Overlay;
 using Common.Validation;
 using intf.BaseViewModels;
 using intf.Utils;
@@ -17,7 +18,11 @@ namespace intf.Views
         public string Name
         {
             get { return _name; }
-            set { Set(ref _name, value); }
+            set
+            {
+                Set(ref _name, value);
+                CreateAccountCommand.RaiseCanExecuteChanged();
+            }
         }
 
 
@@ -25,7 +30,11 @@ namespace intf.Views
         public string Balance
         {
             get { return _balance.ToString(); }
-            set { Set(ref _balance, IntegersOnlyUtils.ConvertOnlyPositive(value, _balance)); }
+            set
+            {
+                Set(ref _balance, IntegersOnlyUtils.ConvertOnlyPositive(value, _balance));
+                CreateAccountCommand.RaiseCanExecuteChanged();
+            }
         }
 
 

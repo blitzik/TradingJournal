@@ -46,7 +46,7 @@
                     </Setter>
                 </Style>
             </Grid.Resources>
-            <ContentControl Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" c:View.Model="{Binding OverlayViewModel, UpdateSourceTrigger=PropertyChanged}" />
+            <ContentControl Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" c:View.Model="{Binding Overlay.Token.Content, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
 

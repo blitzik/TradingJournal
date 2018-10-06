@@ -63,17 +63,6 @@ namespace intf.Views
         }
 
 
-        private IViewModel _overlayViewModel;
-        public IViewModel OverlayViewModel
-        {
-            get { return _overlayViewModel; }
-            private set
-            {
-                Set(ref _overlayViewModel, value);
-            }
-        }
-
-
         private readonly AccountFacade _accountFacade;
 
         public MainWindowViewModel(AccountFacade accountFacade)
@@ -109,8 +98,6 @@ namespace intf.Views
                     _accounts.Add(account);
                 };
 
-                ScreenExtensions.TryActivate(vm);
-                OverlayViewModel = vm;
                 Overlay.DisplayOverlay(vm);
             }
 
