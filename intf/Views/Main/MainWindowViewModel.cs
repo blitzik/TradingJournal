@@ -12,6 +12,7 @@ using System.Linq;
 using System.Collections.Generic;
 using prjt.Facades;
 using prjt.Services;
+using Common.Overlay;
 
 namespace intf.Views
 {
@@ -19,17 +20,6 @@ namespace intf.Views
         BaseConductorOneActive,
         IHandle<IChangeViewMessage<BaseViewModels.IViewModel>>
     {
-        private Account _selectedProfile;
-        public Account SelectedProfile
-        {
-            get { return _selectedProfile; }
-            set
-            {
-                Set(ref _selectedProfile, value);
-            }
-        }
-
-
         private ObservableCollection<Account> _accounts;
         private ReadOnlyObservableCollection<Account> _accountsReadOnly;
         public ReadOnlyObservableCollection<Account> Accounts
@@ -91,18 +81,24 @@ namespace intf.Views
 
             _accountsReadOnly = new ReadOnlyObservableCollection<Account>(_accounts);
             if (accounts.Count < 1) {
-                NewAccountViewModel vm = PrepareViewModel(() => { return new NewAccountViewModel(); });
+                NewAccountViewModel vm = PrepareViewModel(() => { return new NewAccountViewModel(_accountFacade); });
                 vm.IsCancelButtonVisible = false;
                 vm.WindowTitle.Text = "Create your first Account";
-                vm.OnCreatedAccount += (sender, account) => {
+                vm.IsDefaultAccount = true;
+                IOverlayToken t = new OverlayToken(vm);
+                vm.OnSuccessfullAccountCreation += (sender, account) => {
                     _accounts.Add(account);
+                    Identity.Account = account;
+                    NotifyOfPropertyChange(() => Identity);
+                    t.HideOverlay();
                 };
 
-                Overlay.DisplayOverlay(vm);
-            }
+                Overlay.DisplayOverlay(t);
 
-            // todo first must complete new account creation and then we can select an account from _accounts
-            //SelectedProfile = (from Account p in _accounts where p.IsDefault = true select p).First();
+            } else {
+                Identity.Account = (from Account p in _accounts where p.IsDefault = true select p).First();
+                NotifyOfPropertyChange(() => Identity);
+            }
         }
 
 

@@ -4,6 +4,7 @@ using Common.Validation;
 using intf.BaseViewModels;
 using intf.Utils;
 using prjt.Domain;
+using prjt.Facades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,14 @@ namespace intf.Views
         }
 
 
+        private bool _isDefaultAccount;
+        public bool IsDefaultAccount
+        {
+            get { return _isDefaultAccount; }
+            set { Set(ref _isDefaultAccount, value); }
+        }
+
+
         private DelegateCommand<object> _createAccountCommand;
         public DelegateCommand<object> CreateAccountCommand
         {
@@ -62,20 +71,18 @@ namespace intf.Views
         }
 
 
-        public NewAccountViewModel()
-        {
-            IsCancelButtonVisible = true;
+        private AccountFacade _accountFacade;
 
+        public NewAccountViewModel(AccountFacade accountFacade)
+        {
+            _accountFacade = accountFacade;
+
+            IsCancelButtonVisible = true;
+            IsDefaultAccount = false;
             Name = string.Empty;
             Balance = "100";
 
             BaseWindowTitle = "New Account";
-        }
-
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
         }
 
 
@@ -97,12 +104,15 @@ namespace intf.Views
 
         // -----
 
-        public event Action<object, Account> OnCreatedAccount;
+        public event Action<object, Account> OnSuccessfullAccountCreation;
         private void CreateAccount()
         {
-            Action<object, Account> handler = OnCreatedAccount;
+            Account newAccount = new Account(Name, (double)int.Parse(Balance), IsDefaultAccount);
+            _accountFacade.StoreAccount(newAccount);
+
+            Action<object, Account> handler = OnSuccessfullAccountCreation;
             if (handler != null) {
-                handler(this, new Account("todo"));
+                handler(this, newAccount);
             }
         }
 

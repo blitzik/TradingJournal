@@ -25,6 +25,7 @@ namespace prjt.Facades
             Storage(DatabaseNames.ACCOUNTS).Store(account);
             Root<AccountsRoot>(DatabaseNames.ACCOUNTS).Accounts.Put(account);
 
+            Storage(DatabaseNames.ACCOUNTS).Commit();
             // todo create database for account data
 
             return account;

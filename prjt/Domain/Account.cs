@@ -36,9 +36,10 @@ namespace prjt.Domain
 
         private Account() { }
 
-        public Account(string name, bool isDefault = false)
+        public Account(string name, double balance, bool isDefault = false)
         {
             Name = name;
+            Balance = balance;
             IsDefault = isDefault;
         }
     }

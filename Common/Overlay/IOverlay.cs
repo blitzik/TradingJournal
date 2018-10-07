@@ -12,6 +12,7 @@ namespace Common.Overlay
         IOverlayToken Token { get; }
         bool IsActive { get; }
 
+        IOverlayToken DisplayOverlay(IOverlayToken overlayToken);
         IOverlayToken DisplayOverlay<VM>(VM content) where VM : IViewModel;
     }
 }

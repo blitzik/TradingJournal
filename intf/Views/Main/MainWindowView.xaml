@@ -52,7 +52,7 @@
 
         <!-- Accounts' names -->
         <Border Grid.Row="0" Grid.Column="0" Background="#3498db">
-            <ComboBox ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedAccount, Mode=TwoWay}">
+            <ComboBox ItemsSource="{Binding Accounts}" SelectedItem="{Binding Identity.Account, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
