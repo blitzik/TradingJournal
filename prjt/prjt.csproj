@@ -77,8 +77,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comparers\SortIntDescending.cs" />
+    <Compile Include="Domain\Direction.cs" />
+    <Compile Include="Domain\Market.cs" />
     <Compile Include="Domain\PageTitle.cs" />
     <Compile Include="Domain\Account.cs" />
+    <Compile Include="Domain\Trade.cs" />
     <Compile Include="Exceptions\InvalidStateException.cs" />
     <Compile Include="Facades\AccountFacade.cs" />
     <Compile Include="Facades\BaseFacade.cs" />
