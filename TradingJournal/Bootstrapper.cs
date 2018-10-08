@@ -21,6 +21,8 @@ using intf.Subscribers;
 using Common.Utils.ResultObject;
 using Common.Overlay;
 using prjt.Services.Identity;
+using intf.Subscribers.Accounts;
+using System.IO;
 
 namespace TradingJournal
 {
@@ -78,6 +80,7 @@ namespace TradingJournal
             _container.PerRequest<NewAccountViewModel>();
 
             // Subscribers
+            _container.Singleton<AccountSubscriber>().GetInstance<AccountSubscriber>();
         }
 
 
@@ -89,7 +92,10 @@ namespace TradingJournal
 
             ResultObject<object> ro = new ResultObject<object>(true);
             try {
-                Storage profilesStorage = _container.GetInstance<PerstStorageFactory>().OpenConnection<AccountsRoot>(DatabaseNames.ACCOUNTS);
+                Storage profilesStorage = _container.GetInstance<PerstStorageFactory>()
+                                                    .OpenConnection<AccountsRoot>(
+                                                        Path.Combine(PerstStorageFactory.GetDatabaseDirectoryPath(), string.Format("{0}.{1}", DatabaseNames.ACCOUNTS, PerstStorageFactory.DATABASE_EXTENSION))
+                                                    );
                 StoragePool sp = _container.GetInstance<StoragePool>();
                 sp.Add(DatabaseNames.ACCOUNTS, profilesStorage);
 

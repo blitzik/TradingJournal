@@ -25,11 +25,11 @@ namespace prjt.Domain
         }
 
 
-        private double _balance;
-        public double Balance
+        private double _startingBalance;
+        public double StartingBalance
         {
-            get { return _balance; }
-            set { _balance = value; }
+            get { return _startingBalance; }
+            set { _startingBalance = value; }
         }
 
 
@@ -39,7 +39,7 @@ namespace prjt.Domain
         public Account(string name, double balance, bool isDefault = false)
         {
             Name = name;
-            Balance = balance;
+            StartingBalance = balance;
             IsDefault = isDefault;
         }
     }

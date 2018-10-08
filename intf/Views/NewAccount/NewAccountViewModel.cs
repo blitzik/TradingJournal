@@ -1,7 +1,9 @@
-﻿using Common.Commands;
+﻿using Caliburn.Micro;
+using Common.Commands;
 using Common.Overlay;
 using Common.Validation;
 using intf.BaseViewModels;
+using intf.Subscribers.Accounts.Messages;
 using intf.Utils;
 using prjt.Domain;
 using prjt.Facades;
@@ -109,6 +111,8 @@ namespace intf.Views
         {
             Account newAccount = new Account(Name, (double)int.Parse(Balance), IsDefaultAccount);
             _accountFacade.StoreAccount(newAccount);
+
+            EventAggregator.PublishOnUIThread(new AccountSuccessfullyCreatedMessage(newAccount));
 
             Action<object, Account> handler = OnSuccessfullAccountCreation;
             if (handler != null) {

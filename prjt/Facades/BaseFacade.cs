@@ -1,5 +1,7 @@
 ﻿using prjt.Services;
 using Perst;
+using System.IO;
+using System;
 
 namespace prjt.Facades
 {
@@ -28,6 +30,14 @@ namespace prjt.Facades
         protected TRoot Root<TRoot>(string name = null)
         {
             return (TRoot)StoragePool.GetByName(name).Root;
+        }
+
+
+        protected string GetAccountDataStorageFilePath(string accountName)
+        {
+            string path = Path.Combine(PerstStorageFactory.GetDatabaseDirectoryPath(), accountName);
+
+            return Path.Combine(path, string.Format("{0}_data.{1}", accountName, PerstStorageFactory.DATABASE_EXTENSION));
         }
     }
 }
