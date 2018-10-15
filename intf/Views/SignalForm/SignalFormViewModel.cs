@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
+using intf.Subscribers.Signals.Messages;
 
 namespace intf.Views
 {
@@ -22,6 +24,18 @@ namespace intf.Views
             {
                 Set(ref _name, value);
                 SaveSignalCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+
+        private Signal _signal;
+        public Signal Signal
+        {
+            get { return _signal; }
+            set
+            {
+                Set(ref _signal, value);
+                Name = value.Name;
             }
         }
 
@@ -42,7 +56,7 @@ namespace intf.Views
         }
 
 
-        public event Action OnCancelClicked;
+        public event System.Action OnCancelClicked;
         private DelegateCommand<object> _cancelCommand;
         public DelegateCommand<object> CancelCommand
         {
@@ -86,14 +100,23 @@ namespace intf.Views
         }
 
 
-        public event Action<Signal> OnSuccessfullyCreatedSignal;
+        public event Action<Signal> OnSuccessfullySavedSignal;
         private void SaveSignal()
         {
-            Signal signal = _signalFactory.Create(Name);
+            Signal signal;
+            if (Signal != null) {
+                signal = Signal;
+                signal.Name = Name;
+                _signalFacade.UpdateSignal(signal);
 
-            _signalFacade.StoreSignal(signal);
+            } else {
+                signal = _signalFactory.Create(Name);
+                _signalFacade.StoreSignal(signal);
+            }
+            
+            EventAggregator.PublishOnUIThread(new SignalSuccessfullySavedMessage());
 
-            OnSuccessfullyCreatedSignal?.Invoke(signal);
+            OnSuccessfullySavedSignal?.Invoke(signal);
         }
     }
 }

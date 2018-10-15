@@ -136,7 +136,13 @@
     <Compile Include="Subscribers\Accounts\Messages\AccountSuccessfullyCreatedMessage.cs" />
     <Compile Include="Subscribers\Accounts\Messages\BaseAccountMessage.cs" />
     <Compile Include="Subscribers\BaseSubscriber.cs" />
+    <Compile Include="Subscribers\Signals\Messages\SignalSuccessfullySavedMessage.cs" />
+    <Compile Include="Subscribers\Signals\SignalSubscriber.cs" />
     <Compile Include="Utils\IntegersOnlyUtils.cs" />
+    <Compile Include="Views\Confirmation\ConfirmationView.xaml.cs">
+      <DependentUpon>ConfirmationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Confirmation\ConfirmationViewModel.cs" />
     <Compile Include="Views\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
@@ -165,6 +171,10 @@
       <DependentUpon>SignalFormView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SignalForm\SignalFormViewModel.cs" />
+    <Compile Include="Views\Signals\SignalItem\SignalItemView.xaml.cs">
+      <DependentUpon>SignalItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Signals\SignalItem\SignalItemViewModel.cs" />
     <Compile Include="Views\Signals\SignalsView.xaml.cs">
       <DependentUpon>SignalsView.xaml</DependentUpon>
     </Compile>
@@ -202,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Confirmation\ConfirmationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dashboard\DashboardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -227,6 +241,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SignalForm\SignalFormView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Signals\SignalItem\SignalItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

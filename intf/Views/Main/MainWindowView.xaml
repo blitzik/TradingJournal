@@ -81,7 +81,7 @@
               Grid.Column="0"
               Panel.ZIndex="1000"
               Grid.ColumnSpan="2">
-            <Border Panel.ZIndex="1250">
+            <Border>
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonUp">
                         <i:InvokeCommandAction Command="{Binding HideOverlayCommand}" />
@@ -97,7 +97,7 @@
                     </Style>
                 </Border.Resources>
             </Border>
-            <ContentControl Panel.ZIndex="1500" VerticalAlignment="Center" HorizontalAlignment="Center" c:View.Model="{Binding Overlay.Token.Content, UpdateSourceTrigger=PropertyChanged}" />
+            <ContentControl VerticalAlignment="Center" HorizontalAlignment="Center" c:View.Model="{Binding Overlay.Token.Content, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
         <flashMessages:FlashMessages Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" />

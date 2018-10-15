@@ -14,8 +14,8 @@ namespace intf.Views
 {
     public class SignalsViewModel : BaseScreen
     {
-        private ObservableCollection<Signal> _signals;
-        public ObservableCollection<Signal> Signals
+        private ObservableCollection<SignalItemViewModel> _signals;
+        public ObservableCollection<SignalItemViewModel> Signals
         {
             get { return _signals; }
         }
@@ -32,7 +32,7 @@ namespace intf.Views
                 return _newSignalCommand;
             }
         }
-
+        
 
         private SignalFacade _signalFacade;
 
@@ -48,7 +48,7 @@ namespace intf.Views
         {
             base.OnInitialize();
 
-            _signals = new ObservableCollection<Signal>(_signalFacade.FindSignals());
+            _signals = new ObservableCollection<SignalItemViewModel>(PrepareSignalItemViewModelCollection(_signalFacade.FindSignals()));
         }
 
 
@@ -57,13 +57,36 @@ namespace intf.Views
 
         private void DisplayForm()
         {
+            Overlay.DisplayOverlay(PrepareSignalFormViewModel());
+        }
+
+
+        private SignalFormViewModel PrepareSignalFormViewModel()
+        {
             SignalFormViewModel vm = GetViewModel<SignalFormViewModel>();
-            vm.OnSuccessfullyCreatedSignal += (Signal signal) => {
-                Signals.Add(signal);
+            vm.OnSuccessfullySavedSignal += (Signal signal) => {
+                Signals.Add(PrepareSignalItemViewModel(signal));
                 Overlay.HideOverlay();
             };
             vm.OnCancelClicked += () => { Overlay.HideOverlay(); };
-            Overlay.DisplayOverlay(vm);
+
+            return vm;
+        }
+
+
+        private SignalItemViewModel PrepareSignalItemViewModel(Signal signal)
+        {
+            return PrepareViewModel(() => { return new SignalItemViewModel(signal); });
+        }
+
+
+        private List<SignalItemViewModel> PrepareSignalItemViewModelCollection(IReadOnlyCollection<Signal> signals)
+        {
+            List<SignalItemViewModel> result = new List<SignalItemViewModel>();
+            foreach (Signal s in signals) {
+                result.Add(PrepareSignalItemViewModel(s));
+            }
+            return result;
         }
 
     }

@@ -24,6 +24,7 @@ using prjt.Services.Identity;
 using intf.Subscribers.Accounts;
 using System.IO;
 using prjt.Services.Entities;
+using intf.Subscribers.Signals;
 
 namespace TradingJournal
 {
@@ -86,6 +87,8 @@ namespace TradingJournal
             _container.PerRequest<NewAccountViewModel>();
             _container.PerRequest<NewTradeViewModel>();
             _container.PerRequest<SignalFormViewModel>();
+            _container.PerRequest<SignalItemViewModel>();
+            _container.PerRequest<ConfirmationViewModel>();
 
             _container.Singleton<DashboardViewModel>();
             _container.Singleton<MarketsViewModel>();
@@ -93,6 +96,7 @@ namespace TradingJournal
 
             // Subscribers
             _container.Singleton<AccountSubscriber>().GetInstance<AccountSubscriber>();
+            _container.Singleton<SignalSubscriber>().GetInstance<SignalSubscriber>();
         }
 
 

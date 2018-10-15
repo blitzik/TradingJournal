@@ -28,6 +28,13 @@ namespace prjt.Facades
         }
 
 
+        public void UpdateSignal(Signal signal)
+        {
+            AccountDataStorage().Modify(signal);
+            AccountDataStorage().Commit();
+        }
+
+
         public IReadOnlyCollection<Signal> FindSignals()
         {
             IEnumerable<Signal> signals = from Signal s in AccountDataRoot().Signals select s;

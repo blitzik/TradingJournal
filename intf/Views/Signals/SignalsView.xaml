@@ -4,23 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:intf.Views"
-             mc:Ignorable="d" 
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <StackPanel>
-        <Button Margin="0 0 0 75" Width="225" Content="New Signal" Command="{Binding NewSignalCommand}" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Button Grid.Row="0" Width="225" Content="New Signal" Command="{Binding NewSignalCommand}" />
 
-        <WrapPanel>
-            <ItemsControl ItemsSource="{Binding Signals}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Padding="15" Background="#FFF" BorderBrush="#CCC" BorderThickness="1">
-                            <TextBlock Text="{Binding Name}" />
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </WrapPanel>
-    </StackPanel>
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding Signals}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl cal:View.Model="{Binding}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 
 </UserControl>
