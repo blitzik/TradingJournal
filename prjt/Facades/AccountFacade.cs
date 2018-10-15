@@ -8,15 +8,13 @@ using Common.Utils.ResultObject;
 using Perst;
 using prjt.Domain;
 using prjt.Services;
+using prjt.Services.Identity;
 
 namespace prjt.Facades
 {
     public class AccountFacade : BaseFacade
     {
-        private PerstStorageFactory _perstStorageFactory;
-
-
-        public AccountFacade(PerstStorageFactory perstStorageFactory, StoragePool storagePool) : base(storagePool)
+        public AccountFacade(IIdentity identity, PerstStorageFactory perstStorageFactory, StoragePool storagePool) : base(identity, perstStorageFactory, storagePool)
         {
             _perstStorageFactory = perstStorageFactory;
         }
@@ -54,7 +52,7 @@ namespace prjt.Facades
 
         public Storage LoadAccount(string accountName)
         {
-            Storage db = _perstStorageFactory.OpenConnection<Root>(GetAccountDataStorageFilePath(accountName), 16 * 1024 * 1024);
+            Storage db = _perstStorageFactory.OpenConnection<Root>(GetAccountDataStorageFilePath(accountName));
             StoragePool.Add(accountName, db); // todo user account cannot be named "accounts"
 
             return db;

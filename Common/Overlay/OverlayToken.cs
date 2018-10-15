@@ -16,11 +16,19 @@ namespace Common.Overlay
         }
 
 
+        private bool _isMandatory;
+        public bool IsMandatory
+        {
+            get { return _isMandatory; }
+        }
+
+
         public event Action<IOverlayToken> OnOverlayHide;
 
-        public OverlayToken(IViewModel content)
+        public OverlayToken(IViewModel content, bool isMandatory = false)
         {
             _content = content;
+            _isMandatory = isMandatory;
         }
 
 

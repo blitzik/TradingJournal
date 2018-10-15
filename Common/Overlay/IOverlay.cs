@@ -13,6 +13,8 @@ namespace Common.Overlay
         bool IsActive { get; }
 
         IOverlayToken DisplayOverlay(IOverlayToken overlayToken);
-        IOverlayToken DisplayOverlay<VM>(VM content) where VM : IViewModel;
+        IOverlayToken DisplayOverlay<VM>(VM content, bool isMandatory = false) where VM : IViewModel;
+
+        void HideOverlay();
     }
 }

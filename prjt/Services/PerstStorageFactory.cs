@@ -19,7 +19,7 @@ namespace prjt.Services
         }
 
 
-        public Storage OpenConnection<TRoot>(string databaseFilePath, int pageSize = 4 * 1024 * 1024)
+        public Storage OpenConnection<TRoot>(string databaseFilePath, int pageSize = 16 * 1024 * 1024)
         {
             Storage db = StorageFactory.Instance.CreateStorage();
             db.Open(databaseFilePath, pageSize);

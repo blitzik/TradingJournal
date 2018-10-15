@@ -30,7 +30,7 @@ namespace prjt.Utils
         }
 
 
-        public static int GetWeekNumber(int year, int month, int day, string cultureInfoName = "cs-CZ")
+        public static int GetWeekNumber(int year, int month, int day, string cultureInfoName = "en-US")
         {
             CultureInfo ci = new CultureInfo(cultureInfoName);
             return ci.Calendar.GetWeekOfYear(new DateTime(year, month, day), ci.DateTimeFormat.CalendarWeekRule, ci.DateTimeFormat.FirstDayOfWeek);

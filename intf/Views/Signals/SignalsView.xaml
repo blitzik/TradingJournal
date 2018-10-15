@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="intf.Views.SignalsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:intf.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <StackPanel>
+        <Button Margin="0 0 0 75" Width="225" Content="New Signal" Command="{Binding NewSignalCommand}" />
+
+        <WrapPanel>
+            <ItemsControl ItemsSource="{Binding Signals}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="15" Background="#FFF" BorderBrush="#CCC" BorderThickness="1">
+                            <TextBlock Text="{Binding Name}" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </WrapPanel>
+    </StackPanel>
+
+</UserControl>

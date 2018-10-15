@@ -69,56 +69,27 @@
                 </Style>
             </StackPanel.Resources>
 
-            <RadioButton x:Name="DisplayListingsOverview" Grid.Row="0" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=ListingsOverviewViewModel}">
+            <RadioButton x:Name="DisplayMarkets" Grid.Row="0" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=MarketsViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="17" Height="17" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource ListIcon}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <TextBlock Margin="15 2 0 0" Text="Přehled výčetek" />
+                    <TextBlock Margin="15 2 0 0" Text="Markets" />
                 </StackPanel>
             </RadioButton>
-            <RadioButton x:Name="DisplayListingCreation" Grid.Row="1" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=ListingViewModel}">
+            <RadioButton x:Name="DisplaySignals" Grid.Row="1" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=SignalsViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="17" Height="17" Fill="White">
                         <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource NewFileIcon}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <TextBlock Margin="15 3 0 0" Text="Nová výčetka" />
+                    <TextBlock Margin="15 3 0 0" Text="Signals" />
                 </StackPanel>
             </RadioButton>
-            <RadioButton x:Name="DisplayEmployersList" Grid.Row="2" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=EmployersViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="17" Height="17" Fill="White">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource MoneyIcon}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Margin="15 3 0 0" Text="Správa zaměstnavatelů" />
-                </StackPanel>
-            </RadioButton>
-            <RadioButton x:Name="DisplaySettings" Grid.Row="3" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=SettingsViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="17" Height="17" Fill="White">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource SettingsIcon}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Margin="15 1 0 0" Text="Nastavení" />
-                </StackPanel>
-            </RadioButton>
-            <RadioButton x:Name="DisplayEmptyListingsGeneration" Grid.Row="3" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=EmptyListingsGenerationViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="17" Height="17" Fill="White">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource EmptyFileIcon}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Margin="15 1 0 0" Text="Prázdné výčetky" />
-                </StackPanel>
-            </RadioButton>
+            
         </StackPanel>
 
         <!-- Second Navigation -->

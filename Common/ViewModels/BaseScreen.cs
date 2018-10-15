@@ -60,7 +60,11 @@ namespace Common.ViewModels
             return viewModel;
         }
 
-
+        /// <summary>
+        /// Instantiation of viewmodels with parameterless constructor
+        /// </summary>
+        /// <typeparam name="VM"></typeparam>
+        /// <returns></returns>
         protected VM PrepareViewModel<VM>() where VM : IViewModel, new()
         {
             VM vm = Activator.CreateInstance<VM>();
@@ -70,6 +74,12 @@ namespace Common.ViewModels
         }
 
 
+        /// <summary>
+        /// Custom instantiation of viewmodels
+        /// </summary>
+        /// <typeparam name="VM"></typeparam>
+        /// <param name="instantiation"></param>
+        /// <returns></returns>
         protected VM PrepareViewModel<VM>(Func<VM> instantiation) where VM : IViewModel
         {
             VM vm = instantiation.Invoke();

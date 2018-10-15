@@ -51,9 +51,9 @@ namespace Common.Overlay
         }
 
 
-        public IOverlayToken DisplayOverlay<VM>(VM content) where VM : IViewModel
+        public IOverlayToken DisplayOverlay<VM>(VM content, bool isMandatory = false) where VM : IViewModel
         {
-            IOverlayToken token = new OverlayToken(content);
+            IOverlayToken token = new OverlayToken(content, isMandatory);
             token.OnOverlayHide += (s) => {
                 if (s != Token) { // only current token can disable overlay
                     return;
@@ -70,6 +70,12 @@ namespace Common.Overlay
             ScreenExtensions.TryActivate(content);
 
             return token;
+        }
+
+
+        public void HideOverlay()
+        {
+            if (Token != null) Token.HideOverlay();
         }
     }
 }

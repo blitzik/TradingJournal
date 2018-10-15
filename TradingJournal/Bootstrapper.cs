@@ -23,6 +23,7 @@ using Common.Overlay;
 using prjt.Services.Identity;
 using intf.Subscribers.Accounts;
 using System.IO;
+using prjt.Services.Entities;
 
 namespace TradingJournal
 {
@@ -70,14 +71,25 @@ namespace TradingJournal
             _container.Singleton<StoragePool>();
             _container.Singleton<IIODialogService, FilePathDialogService>();
 
+            // Factories
+            _container.Singleton<SignalFactory>();
+
             // facades
             _container.Singleton<AccountFacade>();
+            _container.Singleton<MarketFacade>();
+            _container.Singleton<SignalFacade>();
 
             // Windows
             _container.Singleton<MainWindowViewModel>();
 
             // ViewModels
             _container.PerRequest<NewAccountViewModel>();
+            _container.PerRequest<NewTradeViewModel>();
+            _container.PerRequest<SignalFormViewModel>();
+
+            _container.Singleton<DashboardViewModel>();
+            _container.Singleton<MarketsViewModel>();
+            _container.Singleton<SignalsViewModel>();
 
             // Subscribers
             _container.Singleton<AccountSubscriber>().GetInstance<AccountSubscriber>();

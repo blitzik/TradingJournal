@@ -46,6 +46,23 @@ namespace intf.Views
         }
 
 
+        private DelegateCommand<object> _hideOverlayCommand;
+        public DelegateCommand<object> HideOverlayCommand
+        {
+            get
+            {
+                if (_hideOverlayCommand == null) {
+                    _hideOverlayCommand = new DelegateCommand<object>(p => {
+                        if (!Overlay.Token.IsMandatory) {
+                            Overlay.HideOverlay();
+                        }
+                    });
+                }
+                return _hideOverlayCommand;
+            }
+        }
+
+
         private MainNavigationViewModel _mainNavigationViewModel;
         public MainNavigationViewModel MainNavigationViewModel
         {
@@ -85,20 +102,21 @@ namespace intf.Views
                 vm.IsCancelButtonVisible = false;
                 vm.WindowTitle.Text = "Create your first Account";
                 vm.IsDefaultAccount = true;
-                IOverlayToken t = new OverlayToken(vm);
                 vm.OnSuccessfullAccountCreation += (sender, account) => {
                     _accounts.Add(account);
                     Identity.Account = account;
                     NotifyOfPropertyChange(() => Identity);
-                    t.HideOverlay();
+                    Overlay.HideOverlay();
                 };
 
-                Overlay.DisplayOverlay(t);
+                Overlay.DisplayOverlay(vm, true);
 
             } else {
                 Identity.Account = (from Account p in _accounts where p.IsDefault = true select p).First();
                 NotifyOfPropertyChange(() => Identity);
             }
+
+            EventAggregator.PublishOnUIThread(new ChangeViewMessage<DashboardViewModel>());
         }
 
 

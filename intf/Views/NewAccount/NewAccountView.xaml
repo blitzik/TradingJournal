@@ -14,19 +14,19 @@
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     
-    <Border Padding="20" CornerRadius="20">
+    <Border Padding="20">
         <StackPanel>
             <Border BorderBrush="#CCC" BorderThickness="0 0 0 1">
-                <TextBlock Text="{Binding WindowTitle.Text}" FontSize="24" />
+                <TextBlock Text="{Binding WindowTitle.Text}" Style="{StaticResource ModalTitleText}" />
             </Border>
 
             <TextBlock Margin="0 35 0 0" Text="Account name" />
-            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
+            <TextBox MaxLength="15" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
 
             <TextBlock Margin="0 20 0 0" Text="Starting Account Balance" />
             <TextBox Text="{Binding Balance, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
 
-            <Grid Margin="0 35 0 0" Background="#FFF">
+            <Grid Margin="0 35 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="10" />

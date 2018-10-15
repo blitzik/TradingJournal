@@ -7,6 +7,7 @@
         xmlns:converters="clr-namespace:intf.Converters"
         xmlns:flashMessages="clr-namespace:intf.FlashMessages"
         xmlns:messages="clr-namespace:intf.Messages"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:c="http://www.caliburnproject.org"
         xmlns:b="clr-namespace:Common.Behaviors;assembly=Common"
         mc:Ignorable="d"
@@ -27,27 +28,6 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-
-        <!-- Overlay -->
-        <Grid b:AnimateableVisibility.Visibility="{Binding Overlay.IsActive, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=reversed}"
-              b:AnimateableVisibility.Duration="150"
-              Grid.Row="0"
-              Grid.RowSpan="2"
-              Grid.Column="0"
-              Grid.ColumnSpan="2"
-              Panel.ZIndex="1000">
-            <Grid.Resources>
-                <Style TargetType="{x:Type Grid}">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <SolidColorBrush Color="#000" Opacity=".35" />
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Grid.Resources>
-            <ContentControl Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" c:View.Model="{Binding Overlay.Token.Content, UpdateSourceTrigger=PropertyChanged}" />
-        </Grid>
 
 
         <!-- Accounts' names -->
@@ -92,6 +72,33 @@
                 </b:ContentControlExtension.Storyboard>
             </ContentControl>
         </Border>
+
+        <!-- Overlay -->
+        <Grid b:AnimateableVisibility.Visibility="{Binding Overlay.IsActive, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=reversed}"
+              b:AnimateableVisibility.Duration="175"
+              Grid.Row="0"
+              Grid.RowSpan="2"
+              Grid.Column="0"
+              Panel.ZIndex="1000"
+              Grid.ColumnSpan="2">
+            <Border Panel.ZIndex="1250">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding HideOverlayCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Border.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <SolidColorBrush Color="#000" Opacity=".35" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Border.Resources>
+            </Border>
+            <ContentControl Panel.ZIndex="1500" VerticalAlignment="Center" HorizontalAlignment="Center" c:View.Model="{Binding Overlay.Token.Content, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
 
         <flashMessages:FlashMessages Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
     </Grid>

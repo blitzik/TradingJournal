@@ -10,6 +10,7 @@ namespace Common.Overlay
     public interface IOverlayToken
     {
         IViewModel Content { get; }
+        bool IsMandatory { get; }
 
         void HideOverlay();
 

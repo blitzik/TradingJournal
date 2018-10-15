@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using prjt.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,47 @@ namespace prjt.Domain
         public DateTime DateClose
         {
             get { return _dateClose; }
-            private set { Set(ref _dateClose, value); }
+            private set
+            {
+                Set(ref _dateClose, value);
+
+                Year = _dateClose.Year;
+                Month = _dateClose.Month;
+                Day = _dateClose.Day;
+                WeekNumber = Date.GetWeekNumber(Year, Month, Day);
+            }
+        }
+
+
+        private int _year;
+        public int Year
+        {
+            get { return _year; }
+            private set { Set(ref _year, value); }
+        }
+
+
+        private int _month;
+        public int Month
+        {
+            get { return _month; }
+            private set { Set(ref _month, value); }
+        }
+
+
+        private int _day;
+        public int Day
+        {
+            get { return _day; }
+            private set { Set(ref _day, value); }
+        }
+
+
+        private int _weekNumber;
+        public int WeekNumber
+        {
+            get { return _weekNumber; }
+            private set { Set(ref _weekNumber, value); }
         }
 
 
@@ -46,6 +87,14 @@ namespace prjt.Domain
         {
             get { return _spread; }
             private set { Set(ref _spread, value); }
+        }
+
+
+        private Signal _signal;
+        public Signal Signal
+        {
+            get { return _signal; }
+            set { Set(ref _signal, value); }
         }
 
 
