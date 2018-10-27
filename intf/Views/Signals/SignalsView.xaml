@@ -25,7 +25,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ContentControl cal:View.Model="{Binding}" />
+                    <ContentControl Width="800" cal:View.Model="{Binding}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

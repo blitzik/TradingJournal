@@ -136,8 +136,11 @@
     <Compile Include="Subscribers\Accounts\Messages\AccountSuccessfullyCreatedMessage.cs" />
     <Compile Include="Subscribers\Accounts\Messages\BaseAccountMessage.cs" />
     <Compile Include="Subscribers\BaseSubscriber.cs" />
+    <Compile Include="Subscribers\Markets\MarketSubscriber.cs" />
+    <Compile Include="Subscribers\Markets\Messages\MarketSuccessfullySavedMessage.cs" />
     <Compile Include="Subscribers\Signals\Messages\SignalSuccessfullySavedMessage.cs" />
     <Compile Include="Subscribers\Signals\SignalSubscriber.cs" />
+    <Compile Include="Utils\DoubleOnlyUtils.cs" />
     <Compile Include="Utils\IntegersOnlyUtils.cs" />
     <Compile Include="Views\Confirmation\ConfirmationView.xaml.cs">
       <DependentUpon>ConfirmationView.xaml</DependentUpon>
@@ -155,6 +158,14 @@
       <DependentUpon>MainWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\MainWindowViewModel.cs" />
+    <Compile Include="Views\MarketForm\MarketFormView.xaml.cs">
+      <DependentUpon>MarketFormView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MarketForm\MarketFormViewModel.cs" />
+    <Compile Include="Views\Markets\MarketItem\MarketItemView.xaml.cs">
+      <DependentUpon>MarketItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Markets\MarketItem\MarketItemViewModel.cs" />
     <Compile Include="Views\Markets\MarketsView.xaml.cs">
       <DependentUpon>MarketsView.xaml</DependentUpon>
     </Compile>
@@ -227,6 +238,14 @@
     <Page Include="Views\Main\MainWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MarketForm\MarketFormView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Markets\MarketItem\MarketItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Markets\MarketsView.xaml">
       <SubType>Designer</SubType>

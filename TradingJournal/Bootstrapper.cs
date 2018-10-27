@@ -74,11 +74,13 @@ namespace TradingJournal
 
             // Factories
             _container.Singleton<SignalFactory>();
+            _container.Singleton<MarketFactory>();
 
             // facades
             _container.Singleton<AccountFacade>();
             _container.Singleton<MarketFacade>();
             _container.Singleton<SignalFacade>();
+            _container.Singleton<TradeFacade>();
 
             // Windows
             _container.Singleton<MainWindowViewModel>();
@@ -87,7 +89,7 @@ namespace TradingJournal
             _container.PerRequest<NewAccountViewModel>();
             _container.PerRequest<NewTradeViewModel>();
             _container.PerRequest<SignalFormViewModel>();
-            _container.PerRequest<SignalItemViewModel>();
+            _container.PerRequest<MarketFormViewModel>();
             _container.PerRequest<ConfirmationViewModel>();
 
             _container.Singleton<DashboardViewModel>();
@@ -97,6 +99,7 @@ namespace TradingJournal
             // Subscribers
             _container.Singleton<AccountSubscriber>().GetInstance<AccountSubscriber>();
             _container.Singleton<SignalSubscriber>().GetInstance<SignalSubscriber>();
+            _container.Singleton<MarketSubscriber>().GetInstance<MarketSubscriber>();
         }
 
 

@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using Perst;
+using prjt.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +15,13 @@ namespace prjt.Domain
         public string Symbol
         {
             get { return _symbol; }
-            private set { Set(ref _symbol, value); }
+            set { Set(ref _symbol, value); }
         }
 
 
-        public Market(string symbol)
+        public Market() { }
+
+        public Market(Storage db, string symbol)
         {
             Symbol = symbol;
         }

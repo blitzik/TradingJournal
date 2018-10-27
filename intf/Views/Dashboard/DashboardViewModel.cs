@@ -1,5 +1,7 @@
 ﻿using Common.Commands;
 using intf.BaseViewModels;
+using prjt.Domain;
+using prjt.Facades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +25,11 @@ namespace intf.Views
         }
 
 
+        private TradeFacade _tradeFacade;
 
-        public DashboardViewModel()
+        public DashboardViewModel(TradeFacade tradeFacade)
         {
-
+            _tradeFacade = tradeFacade;
         }
 
 
@@ -35,6 +38,8 @@ namespace intf.Views
             base.OnInitialize();
 
             BaseWindowTitle = "Dashboard";
+
+            IEnumerable<Stats> stats = _tradeFacade.LoadStats();
         }
 
 
@@ -43,7 +48,7 @@ namespace intf.Views
 
         private void NewTrade()
         {
-            Overlay.DisplayOverlay(PrepareViewModel<NewTradeViewModel>());
+            Overlay.DisplayOverlay(GetViewModel<NewTradeViewModel>());
         }
     }
 }

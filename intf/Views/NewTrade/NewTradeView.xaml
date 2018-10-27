@@ -4,16 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:intf.Views"
+             xmlns:converter="clr-namespace:intf.Converters"
              mc:Ignorable="d"
-             Width="650" Height="675"
+             Width="650"
              Background="#FFF"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="800">
 
     <UserControl.Resources>
         <Style TargetType="{x:Type ComboBox}">
             <Setter Property="Padding" Value="9" />
         </Style>
-    </UserControl.Resources>    
+    </UserControl.Resources>
     
     <Border Padding="20">
         <StackPanel>
@@ -29,25 +30,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0">
-                    <!-- Open Time -->
-                    <StackPanel>
-                        <TextBlock Text="Open Time" />
-                        <TextBox Text="" Style="{StaticResource DefaultTextBox}" />
-                    </StackPanel>
-
-                    <!-- Entry Price -->
-                    <StackPanel Margin="0 35 0 0">
-                        <TextBlock Text="Entry Price" />
-                        <TextBox Text="" Style="{StaticResource DefaultTextBox}" />
-                    </StackPanel>
-
-                    <!-- Trade Open Commission -->
-                    <StackPanel Margin="0 35 0 0">
-                        <TextBlock Text="Trade Open Commission" />
-                        <TextBox Text="" Style="{StaticResource DefaultTextBox}" />
-                    </StackPanel>
-
-                    <Grid Margin="0 35 0 0">
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="10" />
@@ -56,12 +39,7 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Market" />
-                            <ComboBox SelectedIndex="0">
-                                <ComboBoxItem Content="EUR/USD" />
-                                <ComboBoxItem Content="GBP/USD" />
-                                <ComboBoxItem Content="USD/JPY" />
-                                <ComboBoxItem Content="NZD/USD" />
-                            </ComboBox>
+                            <ComboBox ItemsSource="{Binding Markets}" SelectedIndex="{Binding SelectedMarket, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Symbol" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
@@ -72,6 +50,38 @@
                             </ComboBox>
                         </StackPanel>
                     </Grid>
+                    
+                    <!-- Open Time -->
+                    <StackPanel Margin="0 35 0 0">
+                        <TextBlock Text="Open Time" />
+                        <!--<TextBox Text="" Style="{StaticResource DefaultTextBox}" />-->
+                        <DatePicker SelectedDate="{Binding OpenTime}">
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <TextBox Style="{StaticResource DefaultTextBox}" Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType=DatePicker}, StringFormat={}{0:MM/dd/yyyy hh:mm:ss}}"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                    </StackPanel>
+
+                    <!-- Entry Price -->
+                    <StackPanel Margin="0 35 0 0">
+                        <TextBlock Text="Entry Price" />
+                        <TextBox Text="{Binding EntryPrice, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
+                    </StackPanel>
+
+                    <!-- Trade Open Commission -->
+                    <StackPanel Margin="0 35 0 0">
+                        <TextBlock Text="Trade Open Commission" />
+                        <TextBox Text="{Binding TradeOpenCommission, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
+                    </StackPanel>
+
 
                     <Grid Margin="0 35 0 0">
                         <Grid.ColumnDefinitions>
@@ -82,35 +92,64 @@
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text="Volume" />
-                            <ComboBox />
+                            <ComboBox  />
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Spread" />
-                            <TextBox Text="" Style="{StaticResource DefaultTextBox}" />
+                            <TextBox Text="{Binding Spread, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
                         </StackPanel>
+                    </Grid>
+
+                    <Grid Margin="0 60 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <CheckBox Grid.Column="0" Content="Stop Loss Hit" />
+                        <CheckBox Grid.Column="2" Content="Target Profit Hit" />
                     </Grid>
                 </StackPanel>
 
 
                 <StackPanel Grid.Column="2">
                     <StackPanel>
-                        <!-- Close Time -->
                         <StackPanel>
+                            <TextBlock Text="Signal" />
+                            <ComboBox ItemsSource="{Binding Signals}" SelectedIndex="{Binding SelectedSignal, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name" />
+                        </StackPanel>
+
+                        <!-- Close Time -->
+                        <StackPanel Margin="0 35 0 0">
                             <TextBlock Text="Close Time" />
-                            <TextBox Text="" Style="{StaticResource DefaultTextBox}" />
+                            <!--<TextBox Text="" Style="{StaticResource DefaultTextBox}" />-->
+                            <DatePicker SelectedDate="{Binding CloseTime}">
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <TextBox Style="{StaticResource DefaultTextBox}" Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType=DatePicker}, StringFormat={}{0:MM/dd/yyyy hh:mm:ss}}"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
                         </StackPanel>
 
                         <!-- Exit Price -->
                         <StackPanel Margin="0 35 0 0">
                             <TextBlock Text="Exit Price" />
-                            <TextBox Text="" Style="{StaticResource DefaultTextBox}" />
+                            <TextBox Text="{Binding ExitPrice, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
                         </StackPanel>
 
                         <!-- Trade Close Commission -->
                         <StackPanel Margin="0 35 0 0">
                             <TextBlock Text="Trade Close Commission" />
-                            <TextBox Text="" Style="{StaticResource DefaultTextBox}" />
+                            <TextBox Text="{Binding TradeCloseCommission, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
                         </StackPanel>
                     </StackPanel>
 
@@ -124,24 +163,21 @@
 
                             <StackPanel Grid.Column="0">
                                 <TextBlock Text="Stop Loss" />
-                                <TextBox Text="" Style="{StaticResource DefaultTextBox}" />
+                                <TextBox Name="TbStopLoss" Text="{Binding StopLoss, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="Target Profit" />
-                                <TextBox Text="" Style="{StaticResource DefaultTextBox}" />
+                                <TextBox Text="{Binding TargetProfit, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
                             </StackPanel>
                         </Grid>
 
                         <StackPanel Margin="0 35 0 0">
-                            <TextBlock Text="Signal" />
-                            <ComboBox SelectedIndex="0">
-                                <ComboBoxItem Content="No Signal" />
-                                <ComboBoxItem Content="Pin Bar Reversal" />
-                                <ComboBoxItem Content="Pin Bar Continuation" />
-                                <ComboBoxItem Content="Fakey" />
-                            </ComboBox>
+                            <TextBlock Text="Profit / Loss" />
+                            <TextBox Text="{Binding ProfitLoss, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DefaultTextBox}" />
                         </StackPanel>
+
+                        <Button Margin="0 35 0 0" Command="{Binding SaveTradeCommand}" Content="Save trade" Style="{StaticResource PrimaryButton}" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

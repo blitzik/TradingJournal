@@ -7,7 +7,7 @@ using Caliburn.Micro;
 using Common.FlashMessages;
 using intf.Subscribers.Signals.Messages;
 
-namespace intf.Subscribers.Signals
+namespace intf.Subscribers
 {
     public class SignalSubscriber : BaseSubscriber,
         IHandle<SignalSuccessfullySavedMessage>

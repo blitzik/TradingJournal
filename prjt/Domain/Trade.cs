@@ -29,7 +29,6 @@ namespace prjt.Domain
                 Year = _dateClose.Year;
                 Month = _dateClose.Month;
                 Day = _dateClose.Day;
-                WeekNumber = Date.GetWeekNumber(Year, Month, Day);
             }
         }
 
@@ -58,16 +57,8 @@ namespace prjt.Domain
         }
 
 
-        private int _weekNumber;
-        public int WeekNumber
-        {
-            get { return _weekNumber; }
-            private set { Set(ref _weekNumber, value); }
-        }
-
-
-        private string _market;
-        public string Market
+        private Market _market;
+        public Market Market
         {
             get { return _market; }
             private set { Set(ref _market, value); }
@@ -94,7 +85,7 @@ namespace prjt.Domain
         public Signal Signal
         {
             get { return _signal; }
-            set { Set(ref _signal, value); }
+            private set { Set(ref _signal, value); }
         }
 
 
@@ -134,7 +125,15 @@ namespace prjt.Domain
         public double ExitPrice
         {
             get { return _exitPrice; }
-            private set { _exitPrice = value; }
+            private set { Set(ref _exitPrice, value); }
+        }
+
+
+        private double _profitLoss;
+        public double ProfitLoss
+        {
+            get { return _profitLoss; }
+            private set { Set(ref _profitLoss, value); }
         }
 
 
@@ -187,9 +186,12 @@ namespace prjt.Domain
         }
 
 
+        private Trade() { }
+
         public Trade(
             DateTime dateOpen,
-            string market,
+            Market market,
+            Signal signal,
             Direction direction,
             double volume,
             double entryPrice,
@@ -200,6 +202,7 @@ namespace prjt.Domain
         ) {
             DateOpen = dateOpen;
             Market = market;
+            Signal = signal;
             Direction = direction;
             Volume = volume;
             EntryPrice = entryPrice;
@@ -210,23 +213,31 @@ namespace prjt.Domain
         }
 
 
-        public void CloseTrade(double exitPrice, double commissionClose = 0)
+        public bool IsWin()
         {
-            ExitPrice = exitPrice;
-            CommissionClose = commissionClose;
+            return _profitLoss > 0;
         }
 
 
-        public void CloseByStopLoss(double exitPrice, double commissionClose)
+        public void CloseTrade(DateTime dateClose, double exitPrice, double profitLoss, double commissionClose = 0)
         {
-            CloseTrade(exitPrice, commissionClose);
+            DateClose = dateClose;
+            ExitPrice = exitPrice;
+            CommissionClose = commissionClose;
+            ProfitLoss = profitLoss;
+        }
+
+
+        public void CloseByStopLoss(DateTime dateClose, double exitPrice, double profitLoss, double commissionClose)
+        {
+            CloseTrade(dateClose, exitPrice, profitLoss, commissionClose);
             HitStopLoss = true;
         }
 
 
-        public void CloseByTargetProfit(double exitPrice, double commissionClose)
+        public void CloseByTargetProfit(DateTime dateClose, double exitPrice, double profitLoss, double commissionClose)
         {
-            CloseTrade(exitPrice, commissionClose);
+            CloseTrade(dateClose, exitPrice, profitLoss, commissionClose);
             HitStopLoss = false;
         }
 

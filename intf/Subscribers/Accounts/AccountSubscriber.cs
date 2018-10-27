@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using intf.Subscribers.Accounts.Messages;
 using Common.FlashMessages;
 
-namespace intf.Subscribers.Accounts
+namespace intf.Subscribers
 {
     public class AccountSubscriber : BaseSubscriber,
         IHandle<AccountSuccessfullyCreatedMessage>

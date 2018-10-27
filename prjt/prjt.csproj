@@ -77,26 +77,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comparers\SortIntDescending.cs" />
-    <Compile Include="Domain\DayStats.cs" />
     <Compile Include="Domain\Direction.cs" />
     <Compile Include="Domain\Market.cs" />
-    <Compile Include="Domain\MonthStats.cs" />
     <Compile Include="Domain\PageTitle.cs" />
     <Compile Include="Domain\Account.cs" />
     <Compile Include="Domain\Signal.cs" />
     <Compile Include="Domain\Stats.cs" />
-    <Compile Include="Domain\TotalStatistics.cs" />
     <Compile Include="Domain\Trade.cs" />
-    <Compile Include="Domain\WeekStats.cs" />
-    <Compile Include="Domain\YearStats.cs" />
     <Compile Include="Exceptions\InvalidStateException.cs" />
     <Compile Include="Facades\AccountFacade.cs" />
     <Compile Include="Facades\BaseFacade.cs" />
     <Compile Include="Facades\MarketFacade.cs" />
     <Compile Include="Facades\SignalFacade.cs" />
+    <Compile Include="Facades\TradeFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountsRoot.cs" />
     <Compile Include="Services\Entities\BaseEntityFactory.cs" />
+    <Compile Include="Services\Entities\MarketFactory.cs" />
     <Compile Include="Services\Entities\SignalFactory.cs" />
     <Compile Include="Services\Identity\Identity.cs" />
     <Compile Include="Services\Identity\IIdentity.cs" />

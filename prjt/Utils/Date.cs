@@ -37,6 +37,35 @@ namespace prjt.Utils
         }
 
 
+        public static HashSet<int> GetWeekNumbersInMonth(int year, int month, string cultureInfoName = "en-US")
+        {
+            CultureInfo ci = new CultureInfo(cultureInfoName);
+            HashSet<int> weekNumbers = new HashSet<int>();
+            for (int day = 1; day <= DateTime.DaysInMonth(year, month); day++) {
+                weekNumbers.Add(ci.Calendar.GetWeekOfYear(new DateTime(year, month, day), ci.DateTimeFormat.CalendarWeekRule, ci.DateTimeFormat.FirstDayOfWeek));
+            }
+
+            return weekNumbers;
+        }
+
+
+        public static Dictionary<int, HashSet<int>> GetWeeksAndDaysInMonth(int year, int month, string cultureInfoName = "en-US")
+        {
+            CultureInfo ci = new CultureInfo(cultureInfoName);
+
+            Dictionary<int, HashSet<int>> result = new Dictionary<int, HashSet<int>>();
+            for (int day = 1; day <= DateTime.DaysInMonth(year, month); day++) {
+                int weekNumber = ci.Calendar.GetWeekOfYear(new DateTime(year, month, day), ci.DateTimeFormat.CalendarWeekRule, ci.DateTimeFormat.FirstDayOfWeek);
+                if (!result.ContainsKey(weekNumber)) {
+                    result.Add(weekNumber, new HashSet<int>());
+                }
+                result[weekNumber].Add(day);
+            }
+
+            return result;
+        }
+
+
         public static List<int> GetLastYears(int numberOfYears)
         {
             int stopYear = DateTime.Now.Year - numberOfYears;

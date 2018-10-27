@@ -1,14 +1,12 @@
-﻿using Caliburn.Micro;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace prjt.Domain
+namespace intf.Subscribers.Markets.Messages
 {
-    public class TotalStatistics : PropertyChangedBase
+    public class MarketSuccessfullySavedMessage
     {
-
     }
 }
