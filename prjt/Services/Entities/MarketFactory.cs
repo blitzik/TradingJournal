@@ -17,7 +17,7 @@ namespace prjt.Services.Entities
 
         public Market Create(string symbol)
         {
-            return new Market(GetStorage(), symbol);
+            return new Market(symbol);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace prjt.Domain
 
         public Signal() { }
 
-        public Signal(Storage db, string name)
+        public Signal(string name)
         {
             Name = name;
         }

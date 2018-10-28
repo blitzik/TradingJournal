@@ -26,11 +26,11 @@ namespace prjt.Services
         }
 
 
-        private CompoundIndex<Stats> _periodStats;
-        public CompoundIndex<Stats> PeriodStats
+        private CompoundIndex<Stats> _tradeStats;
+        public CompoundIndex<Stats> TradeStats
         {
-            get { return _periodStats; }
-            private set { _periodStats = value; }
+            get { return _tradeStats; }
+            private set { _tradeStats = value; }
         }
 
 
@@ -50,6 +50,14 @@ namespace prjt.Services
         }
 
 
+        private CompoundIndex<SignalStats> _signalStats;
+        public CompoundIndex<SignalStats> SignalStats
+        {
+            get { return _signalStats; }
+            private set { _signalStats = value; }
+        }
+
+
         private FieldIndex<string, Market> _markets;
         public FieldIndex<string, Market> Markets
         {
@@ -58,13 +66,25 @@ namespace prjt.Services
         }
 
 
+        private CompoundIndex<MarketStats> _marketStats;
+        public CompoundIndex<MarketStats> MarketStats
+        {
+            get { return _marketStats; }
+            private set { _marketStats = value; }
+        }
+
+
         public Root(Storage db)
         {
-            PeriodStats = db.CreateIndex<Stats>(new Type[] { typeof(StatsPeriod), typeof(int), typeof(int), typeof(int), typeof(int) }, true);
+            TradeStats = db.CreateIndex<Stats>(new Type[] { typeof(StatsPeriod), typeof(int), typeof(int), typeof(int), typeof(int) }, true);
 
             Trades = db.CreateIndex<Trade>(new Type[] { typeof(int)/*Year*/, typeof(int)/*Month*/, typeof(int)/*Day*/ }, false);
+
             Signals = db.CreateFieldIndex<string, Signal>("_name", true);
+            SignalStats = db.CreateIndex<SignalStats>(new Type[] { typeof(string), typeof(StatsPeriod), typeof(int), typeof(int), typeof(int), typeof(int) }, true);
+
             Markets = db.CreateFieldIndex<string, Market>("_symbol", true);
+            MarketStats = db.CreateIndex<MarketStats>(new Type[] { typeof(string), typeof(StatsPeriod), typeof(int), typeof(int), typeof(int), typeof(int) }, true);
         }
 
     }

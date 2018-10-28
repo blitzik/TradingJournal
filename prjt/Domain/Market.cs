@@ -21,7 +21,7 @@ namespace prjt.Domain
 
         public Market() { }
 
-        public Market(Storage db, string symbol)
+        public Market(string symbol)
         {
             Symbol = symbol;
         }

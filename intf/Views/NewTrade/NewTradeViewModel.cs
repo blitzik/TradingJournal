@@ -226,7 +226,7 @@ namespace intf.Views
 
         private void SaveTrade()
         {
-            Trade t = new Trade(
+            /*Trade t = new Trade(
                 OpenTime,
                 Markets[SelectedMarket],
                 Signals[SelectedSignal],
@@ -249,7 +249,9 @@ namespace intf.Views
                 t.CloseTrade(CloseTime, _exitPrice ?? 0, _profitLoss ?? 0, _tradeCloseCommission ?? 0);
             }
 
-            _tradeFacade.SaveTrade(t);
+            _tradeFacade.SaveTrade(t);*/
+
+            //_tradeFacade.GenerateData();
         }
     }
 }

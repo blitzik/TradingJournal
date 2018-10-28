@@ -39,7 +39,7 @@ namespace intf.Views
 
             BaseWindowTitle = "Dashboard";
 
-            IEnumerable<Stats> stats = _tradeFacade.LoadStats();
+            //IEnumerable<Stats> stats = _tradeFacade.LoadStats();
         }
 
 

@@ -47,6 +47,12 @@ namespace intf.Views
         }
 
 
+        public void DisplayDashboard()
+        {
+            EventAggregator.PublishOnUIThread(new ChangeViewMessage<DashboardViewModel>());
+        }
+
+
         public void DisplayMarkets()
         {
             EventAggregator.PublishOnUIThread(new ChangeViewMessage<MarketsViewModel>());

@@ -69,6 +69,16 @@
                 </Style>
             </StackPanel.Resources>
 
+            <RadioButton x:Name="DisplayDashboard" Grid.Row="0" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=MarketsViewModel}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="17" Height="17" Fill="White">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource ListIcon}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="15 2 0 0" Text="Dashboard" />
+                </StackPanel>
+            </RadioButton>            
             <RadioButton x:Name="DisplayMarkets" Grid.Row="0" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=MarketsViewModel}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="17" Height="17" Fill="White">

@@ -16,7 +16,7 @@ namespace prjt.Services.Entities
 
         public Signal Create(string name)
         {
-            return new Signal(GetStorage(), name);
+            return new Signal(name);
         }
     }
 }
