@@ -43,7 +43,10 @@ namespace prjt.Facades
             SaveSignalStats(trade, StatsPeriod.WEEK, trade.Year, trade.Month, weekNumber);
             SaveSignalStats(trade, StatsPeriod.DAY, trade.Year, trade.Month, weekNumber, trade.Day);
 
-            //AccountDataStorage().Commit();
+            Identity.Account.CurrentBalance += trade.ProfitLoss;
+            AccountDataStorage().Modify(Identity.Account);
+
+            AccountDataStorage().Commit();
         }
 
 

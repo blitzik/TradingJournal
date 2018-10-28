@@ -29,7 +29,7 @@ namespace prjt.Domain
         public double StartingBalance
         {
             get { return _startingBalance; }
-            set { Set(ref _startingBalance, value); }
+            private set { Set(ref _startingBalance, value); }
         }
 
 
@@ -37,7 +37,7 @@ namespace prjt.Domain
         public double CurrentBalance
         {
             get { return _currentBalance; }
-            private set { Set(ref _currentBalance, value); }
+            set { Set(ref _currentBalance, value); }
         }
 
 
