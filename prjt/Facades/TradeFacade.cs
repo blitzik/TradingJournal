@@ -81,7 +81,7 @@ namespace prjt.Facades
                 AccountDataRoot().Markets.Put(m);
             }
 
-            for (int i = 0; i <= 10000; i++) {
+            for (int i = 0; i <= 3000; i++) {
                 DateTime tradeOpen = new DateTime(r.Next(2010, 2019), r.Next(1, 13), r.Next(1, 29), r.Next(0, 23), r.Next(0, 60), r.Next(0, 60));
                 DateTime tradeClose = tradeOpen.AddMinutes(r.Next(5, 301));
                 double entryPrice = r.Next(200, 5001);
@@ -89,6 +89,7 @@ namespace prjt.Facades
                 double spread = r.Next(100, 500);
 
                 Trade trade = new Trade(
+                    Identity.Account.CurrentBalance,
                     tradeOpen,
                     markets[r.Next(0, markets.Length - 1)],
                     signals[r.Next(0, signals.Length - 1)],
@@ -168,11 +169,11 @@ namespace prjt.Facades
         public IEnumerable<Stats> LoadStats()
         {
             return from Stats s in AccountDataRoot().TradeStats
-                   where s.Period == StatsPeriod.TOTAL &&
+                   /*where s.Period == StatsPeriod.TOTAL &&
                          s.Year == 0 &&
                          s.Month == 0 &&
                          s.Week == 0 &&
-                         s.Day == 0
+                         s.Day == 0*/
                    select s;
         }
     }

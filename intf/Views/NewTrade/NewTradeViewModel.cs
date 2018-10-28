@@ -227,6 +227,7 @@ namespace intf.Views
         private void SaveTrade()
         {
             /*Trade t = new Trade(
+                Identity.Account.CurrentBalance,
                 OpenTime,
                 Markets[SelectedMarket],
                 Signals[SelectedSignal],
@@ -251,7 +252,7 @@ namespace intf.Views
 
             _tradeFacade.SaveTrade(t);*/
 
-            //_tradeFacade.GenerateData();
+            _tradeFacade.GenerateData();
         }
     }
 }

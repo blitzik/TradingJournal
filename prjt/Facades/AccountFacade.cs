@@ -40,8 +40,6 @@ namespace prjt.Facades
                 accRoot = new Root(accDb);
                 accDb.Root = accRoot;
             }
-            accRoot.StartingBalance = account.StartingBalance;
-            accRoot.Balance = account.StartingBalance;
 
             storage.Commit();
             accDb.Commit();

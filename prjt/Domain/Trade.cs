@@ -57,6 +57,22 @@ namespace prjt.Domain
         }
 
 
+        private double _accountBalanceBeforeTrade;
+        public double AccountBalanceBeforeTrade
+        {
+            get { return _accountBalanceBeforeTrade; }
+            private set { Set(ref _accountBalanceBeforeTrade, value); }
+        }
+
+
+        private double _accountBalanceAfterTrade;
+        public double AccountBalanceAfterTrade
+        {
+            get { return _accountBalanceAfterTrade; }
+            private set { Set(ref _accountBalanceAfterTrade, value); }
+        }
+
+
         private Market _market;
         public Market Market
         {
@@ -161,15 +177,6 @@ namespace prjt.Domain
         }
 
 
-        // actual RRR (after trade is closed)
-        private double _riskRewardRatio;
-        public double RiskRewardRatio
-        {
-            get { return _riskRewardRatio; }
-            private set { Set(ref _riskRewardRatio, value); }
-        }
-
-
         private bool? _hitStopLoss;
         public bool? HitStopLoss
         {
@@ -189,6 +196,7 @@ namespace prjt.Domain
         private Trade() { }
 
         public Trade(
+            double accountBalance,
             DateTime dateOpen,
             Market market,
             Signal signal,
@@ -200,6 +208,7 @@ namespace prjt.Domain
             double? stopLoss = null,
             double? targetProfit = null
         ) {
+            AccountBalanceBeforeTrade = accountBalance;
             DateOpen = dateOpen;
             Market = market;
             Signal = signal;
@@ -225,6 +234,16 @@ namespace prjt.Domain
             ExitPrice = exitPrice;
             CommissionClose = commissionClose;
             ProfitLoss = profitLoss;
+            AccountBalanceAfterTrade = AccountBalanceBeforeTrade + profitLoss;
+
+            if (StopLoss != null && TargetProfit != null) {
+                // calculated for LONG position
+                double rrr = ((TargetProfit ?? 0) - EntryPrice) / (EntryPrice - (StopLoss ?? 0));
+                if (Direction == Direction.SHORT) {
+                    rrr = Math.Pow(rrr, -1);
+                }
+                ExpectedRiskRewardRatio = rrr;
+            }
         }
 
 

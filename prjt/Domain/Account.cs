@@ -21,7 +21,7 @@ namespace prjt.Domain
         public bool IsDefault
         {
             get { return _isDefault; }
-            set { _isDefault = value; }
+            set { Set(ref _isDefault, value); }
         }
 
 
@@ -29,9 +29,16 @@ namespace prjt.Domain
         public double StartingBalance
         {
             get { return _startingBalance; }
-            set { _startingBalance = value; }
+            set { Set(ref _startingBalance, value); }
         }
 
+
+        private double _currentBalance;
+        public double CurrentBalance
+        {
+            get { return _currentBalance; }
+            private set { Set(ref _currentBalance, value); }
+        }
 
 
         private Account() { }
@@ -40,6 +47,7 @@ namespace prjt.Domain
         {
             Name = name;
             StartingBalance = balance;
+            CurrentBalance = balance;
             IsDefault = isDefault;
         }
     }

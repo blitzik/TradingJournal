@@ -56,6 +56,9 @@ namespace prjt.Domain
         }
 
 
+        // -----
+
+
         private int _totalTradesCount;
         public int TotalTradesCount
         {
@@ -94,6 +97,13 @@ namespace prjt.Domain
             get { return _lossShortCount; }
             private set { Set(ref _lossShortCount, value); }
         }
+
+
+        public double WinRate
+        {
+            get { return ((WinLongCount + WinShortCount) / TotalTradesCount) * 100; }
+        }
+
 
 
         // -----
@@ -139,7 +149,130 @@ namespace prjt.Domain
         }
 
 
-        public Stats() { }
+        // fees
+
+
+        private double _totalCommisionOpen;
+        public double TotalCommisionOpen
+        {
+            get { return _totalCommisionOpen; }
+            private set { Set(ref _totalCommisionOpen, value); }
+        }
+
+
+        private double _totalCommisionClose;
+        public double TotalCommisionClose
+        {
+            get { return _totalCommisionClose; }
+            private set { Set(ref _totalCommisionClose, value); }
+        }
+
+
+        private double _totalSpread;
+        public double TotalSpread
+        {
+            get { return _totalSpread; }
+            private set { Set(ref _totalSpread, value); }
+        }
+
+
+        // RRR
+
+
+        private double _totalExpectedRRRCount;
+        public double TotalExpectedRRRCount
+        {
+            get { return _totalExpectedRRRCount; }
+            private set { Set(ref _totalExpectedRRRCount, value); }
+        }
+
+
+        private double _sumOfExpectedRRRs;
+        public double SumOfExpectedRRRs
+        {
+            get { return _sumOfExpectedRRRs; }
+            private set { Set(ref _sumOfExpectedRRRs, value); }
+        }
+
+
+        public double AverageRRR
+        {
+            get { return (SumOfExpectedRRRs / TotalExpectedRRRCount) * 100; }
+        }
+
+
+        // best / worst trades
+
+
+        private double _bestTrade;
+        public double BestTrade
+        {
+            get { return _bestTrade; }
+            private set { Set(ref _bestTrade, value); }
+        }
+
+
+        private double _bestTradePCT;
+        public double BestTradePCT
+        {
+            get { return _bestTradePCT; }
+            private set { Set(ref _bestTradePCT, value); }
+        }
+
+
+        private double _worstTrade;
+        public double WorstTrade
+        {
+            get { return _worstTrade; }
+            private set { Set(ref _worstTrade, value); }
+        }
+
+
+        private double _worstTradePCT;
+        public double WorstTradePCT
+        {
+            get { return _worstTradePCT; }
+            private set { Set(ref _worstTradePCT, value); }
+        }
+
+
+        // longest W/L streaks
+
+
+        private bool _isWinningStreak;
+        private bool IsWinningStreak
+        {
+            get { return _isWinningStreak; }
+            set { Set(ref _isWinningStreak, value); }
+        }
+
+
+        private int _currentStreak;
+        public int CurrentStreak
+        {
+            get { return _currentStreak; }
+            private set { Set(ref _currentStreak, value); }
+        }
+
+
+        private int _longestWinStreak;
+        public int LongestWinStreak
+        {
+            get { return _longestWinStreak; }
+            private set { Set(ref _longestWinStreak, value); }
+        }
+
+
+        private int _longestLoseStreak;
+        public int LongestLoseStreak
+        {
+            get { return _longestLoseStreak; }
+            private set { Set(ref _longestLoseStreak, value); }
+        }
+
+
+
+        private Stats() { }
 
 
         public Stats(StatsPeriod period, int year, int month, int week, int day)
@@ -182,26 +315,66 @@ namespace prjt.Domain
 
         public void AddTrade(Trade trade)
         {
-            _totalTradesCount += 1;
-            _totalNetPL += trade.ProfitLoss;
+            TotalTradesCount += 1;
+            TotalNetPL += trade.ProfitLoss;
+            TotalCommisionOpen += trade.CommissionOpen;
+            TotalCommisionClose += trade.CommissionClose;
+            TotalSpread += trade.Spread;
+
+            if (trade.ExpectedRiskRewardRatio != null) {
+                TotalExpectedRRRCount += 1;
+                SumOfExpectedRRRs += trade.ExpectedRiskRewardRatio ?? 0;
+            }
+
             if (trade.IsWin()) {
                 if (trade.Direction == Direction.LONG) {
-                    _winLongCount += 1;
-                    _winLong += trade.ProfitLoss;
+                    WinLongCount += 1;
+                    WinLong += trade.ProfitLoss;
                 } else {
-                    _winShortCount += 1;
-                    _winShort += trade.ProfitLoss;
+                    WinShortCount += 1;
+                    WinShort += trade.ProfitLoss;
+                }
+
+                if (IsWinningStreak == true) {
+                    CurrentStreak += 1;
+                    if (LongestWinStreak < CurrentStreak) {
+                        LongestWinStreak = CurrentStreak;
+                    }
+                } else {
+                    CurrentStreak = 0;
+                    IsWinningStreak = true;
                 }
 
             } else {
                 if (trade.Direction == Direction.LONG) {
-                    _lossLongCount += 1;
-                    _lossLong += trade.ProfitLoss;
+                    LossLongCount += 1;
+                    LossLong += trade.ProfitLoss;
 
                 } else {
-                    _lossShortCount += 1;
-                    _lossShort += trade.ProfitLoss;
+                    LossShortCount += 1;
+                    LossShort += trade.ProfitLoss;
                 }
+
+                if (IsWinningStreak == true) {
+                    CurrentStreak = 0;
+                    IsWinningStreak = false;
+                } else {
+                    CurrentStreak += 1;
+                    if (LongestLoseStreak < CurrentStreak) {
+                        LongestLoseStreak = CurrentStreak;
+                    }
+                }
+            }
+
+            double bwTradePCT = (trade.ProfitLoss / trade.AccountBalanceBeforeTrade) * 100;
+            if (BestTrade < trade.ProfitLoss) {
+                BestTrade = trade.ProfitLoss;
+                BestTradePCT = bwTradePCT;
+            }
+
+            if (WorstTrade > trade.ProfitLoss) {
+                WorstTrade = trade.ProfitLoss;
+                WorstTradePCT = bwTradePCT;
             }
         }
     }
