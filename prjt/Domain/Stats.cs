@@ -176,6 +176,12 @@ namespace prjt.Domain
         }
 
 
+        public double TotalFees
+        {
+            get { return TotalCommisionOpen + TotalCommisionClose + TotalSpread; }
+        }
+
+
         // RRR
 
 
@@ -326,7 +332,7 @@ namespace prjt.Domain
                 SumOfExpectedRRRs += trade.ExpectedRiskRewardRatio ?? 0;
             }
 
-            if (trade.IsWin()) {
+            if (trade.IsWin) {
                 if (trade.Direction == Direction.LONG) {
                     WinLongCount += 1;
                     WinLong += trade.ProfitLoss;

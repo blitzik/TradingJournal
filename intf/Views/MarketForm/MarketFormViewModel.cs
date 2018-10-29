@@ -72,8 +72,8 @@ namespace intf.Views
         }
 
 
-        private MarketFacade _marketFacade;
-        private MarketFactory _marketFactory;
+        private readonly MarketFacade _marketFacade;
+        private readonly MarketFactory _marketFactory;
         
         public MarketFormViewModel(MarketFacade marketFacade, MarketFactory marketFactory)
         {

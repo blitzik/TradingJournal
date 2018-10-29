@@ -73,7 +73,7 @@ namespace intf.Views
         }
 
 
-        private AccountFacade _accountFacade;
+        private readonly AccountFacade _accountFacade;
 
         public NewAccountViewModel(AccountFacade accountFacade)
         {

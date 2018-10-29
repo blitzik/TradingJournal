@@ -24,6 +24,7 @@
                     <Setter Property="Background" Value="#263238" />
                     <Setter Property="BorderThickness" Value="0" />
                     <Setter Property="Foreground" Value="#FFF" />
+                    <Setter Property="FontSize" Value="15" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type RadioButton}">
@@ -58,48 +59,14 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-                <Style TargetType="{x:Type StackPanel}">
-                    <Setter Property="LayoutTransform">
-                        <Setter.Value>
-                            <ScaleTransform />
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Width" Value="200" />
-                    <Setter Property="HorizontalAlignment" Value="Left" />
-                </Style>
             </StackPanel.Resources>
 
-            <RadioButton x:Name="DisplayDashboard" Grid.Row="0" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=MarketsViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="17" Height="17" Fill="White">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource ListIcon}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Margin="15 2 0 0" Text="Dashboard" />
-                </StackPanel>
-            </RadioButton>            
-            <RadioButton x:Name="DisplayMarkets" Grid.Row="0" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=MarketsViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="17" Height="17" Fill="White">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource ListIcon}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Margin="15 2 0 0" Text="Markets" />
-                </StackPanel>
-            </RadioButton>
-            <RadioButton x:Name="DisplaySignals" Grid.Row="1" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=SignalsViewModel}">
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="17" Height="17" Fill="White">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{StaticResource NewFileIcon}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Margin="15 3 0 0" Text="Signals" />
-                </StackPanel>
-            </RadioButton>
-            
+            <RadioButton x:Name="DisplayDashboard" Content="Dashboard" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=DashboardViewModel}" />
+            <RadioButton x:Name="DisplayTrades" Content="Trades"  IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=TradesViewModel}" />
+            <RadioButton x:Name="DisplayStats" Content="Statistics"  IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=StatisticsViewModel}" />
+            <RadioButton x:Name="DisplayMarkets" Content="Markets" IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=MarketsViewModel}" />
+            <RadioButton x:Name="DisplaySignals" Content="Signals"  IsChecked="{Binding ActiveItem, Converter={StaticResource ViewModelToBooleanConverter}, ConverterParameter=SignalsViewModel}" />
+
         </StackPanel>
 
         <!-- Second Navigation -->

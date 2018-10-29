@@ -53,6 +53,18 @@ namespace intf.Views
         }
 
 
+        public void DisplayTrades()
+        {
+            EventAggregator.PublishOnUIThread(new ChangeViewMessage<TradesViewModel>());
+        }
+
+
+        public void DisplayStats()
+        {
+            EventAggregator.PublishOnUIThread(new ChangeViewMessage<StatisticsViewModel>());
+        }
+
+
         public void DisplayMarkets()
         {
             EventAggregator.PublishOnUIThread(new ChangeViewMessage<MarketsViewModel>());

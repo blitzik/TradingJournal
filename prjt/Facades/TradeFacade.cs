@@ -50,6 +50,44 @@ namespace prjt.Facades
         }
 
 
+        public IEnumerable<Trade> FindTrades(int year)
+        {
+            IEnumerable<Trade> trades = from Trade t in AccountDataRoot().Trades
+                                        where t.Year == year
+                                        select t;
+
+            return trades;
+        }
+
+
+        public IEnumerable<Trade> FindTrades(int year, int month)
+        {
+            IEnumerable<Trade> trades = from Trade t in AccountDataRoot().Trades
+                                        where t.Year == year && t.Month == month
+                                        select t;
+
+            return trades;
+        }
+
+
+        public IEnumerable<Trade> FindTrades(int year, int month, int day)
+        {
+            IEnumerable<Trade> trades = from Trade t in AccountDataRoot().Trades
+                                        where t.Year == year &&
+                                              t.Month == month &&
+                                              t.Day == day
+                                        select t;
+
+            return trades;
+        }
+
+
+        public IEnumerable<int> GetYears()
+        {
+            return (from Trade t in AccountDataRoot().Trades select t.Year).Distinct();
+        }
+
+
         public void GenerateData()
         {
             Random r = new Random();

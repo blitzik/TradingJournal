@@ -91,6 +91,7 @@
     <Compile Include="Facades\BaseFacade.cs" />
     <Compile Include="Facades\MarketFacade.cs" />
     <Compile Include="Facades\SignalFacade.cs" />
+    <Compile Include="Facades\StatsFacade.cs" />
     <Compile Include="Facades\TradeFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountsRoot.cs" />

@@ -72,8 +72,8 @@ namespace intf.Views
         }
 
 
-        private SignalFacade _signalFacade;
-        private SignalFactory _signalFactory;
+        private readonly SignalFacade _signalFacade;
+        private readonly SignalFactory _signalFactory;
 
         public SignalFormViewModel(SignalFacade signalFacade, SignalFactory signalFactory)
         {

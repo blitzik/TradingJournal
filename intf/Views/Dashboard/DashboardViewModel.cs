@@ -25,7 +25,7 @@ namespace intf.Views
         }
 
 
-        private TradeFacade _tradeFacade;
+        private readonly TradeFacade _tradeFacade;
 
         public DashboardViewModel(TradeFacade tradeFacade)
         {

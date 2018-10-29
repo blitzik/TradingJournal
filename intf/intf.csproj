@@ -190,6 +190,14 @@
       <DependentUpon>SignalsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Signals\SignalsViewModel.cs" />
+    <Compile Include="Views\Statistics\StatisticsView.xaml.cs">
+      <DependentUpon>StatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics\StatisticsViewModel.cs" />
+    <Compile Include="Views\Trades\TradesView.xaml.cs">
+      <DependentUpon>TradesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Trades\TradesViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -268,6 +276,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Signals\SignalsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics\StatisticsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Trades\TradesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

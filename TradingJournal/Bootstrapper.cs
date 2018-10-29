@@ -81,6 +81,7 @@ namespace TradingJournal
             _container.Singleton<MarketFacade>();
             _container.Singleton<SignalFacade>();
             _container.Singleton<TradeFacade>();
+            _container.Singleton<StatsFacade>();
 
             // Windows
             _container.Singleton<MainWindowViewModel>();
@@ -95,6 +96,8 @@ namespace TradingJournal
             _container.Singleton<DashboardViewModel>();
             _container.Singleton<MarketsViewModel>();
             _container.Singleton<SignalsViewModel>();
+            _container.Singleton<TradesViewModel>();
+            _container.Singleton<StatisticsViewModel>();
 
             // Subscribers
             _container.Singleton<AccountSubscriber>().GetInstance<AccountSubscriber>();
@@ -108,6 +111,9 @@ namespace TradingJournal
             /*if (!mutex.WaitOne(TimeSpan.FromSeconds(1), false)) {
                 System.Windows.Application.Current.Shutdown();
             }*/
+
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
 
             ResultObject<object> ro = new ResultObject<object>(true);
             try {

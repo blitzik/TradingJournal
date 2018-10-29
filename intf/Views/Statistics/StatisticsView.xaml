@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="intf.Views.StatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:intf.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="2000">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <ComboBox Padding="6" FontSize="16" Width="150" Margin="0 0 5 0" ItemsSource="{Binding StatsPeriods}" SelectedValue="{Binding SelectedStatsPeriod}" />
+            <ComboBox Padding="6" FontSize="16" Width="150" Margin="0 0 5 0" ItemsSource="{Binding Years}" SelectedIndex="{Binding SelectedMonthIndex, UpdateSourceTrigger=PropertyChanged}" />
+            <!--<ComboBox Padding="6" FontSize="16" Width="150" ItemsSource="{Binding Weeks}" SelectedIndex="{Binding SelectedDayIndex, UpdateSourceTrigger=PropertyChanged}" />-->
+        </StackPanel>
+
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Stats}" SelectedItem="{Binding SelectedStats}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Padding" Value="5" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                    <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsWin}" Value="True">
+                            <Setter Property="Background" Value="#DCEDC8" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsWin}" Value="False">
+                            <Setter Property="Background" Value="#ffcdd2" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Year" Binding="{Binding Year}" />
+                <DataGridTextColumn Header="Month" Binding="{Binding Month}" />
+                <DataGridTextColumn Header="Week" Binding="{Binding Week}" />
+                <DataGridTextColumn Header="Day" Binding="{Binding Day}" />
+
+                <DataGridTextColumn Header="Total trades" Binding="{Binding TotalTradesCount}" />
+                <DataGridTextColumn Header="Win Long(#)" Binding="{Binding WinLongCount}" />
+                <DataGridTextColumn Header="Loss Long(#)" Binding="{Binding LossLongCount}" />
+                <DataGridTextColumn Header="Win Short(#)" Binding="{Binding WinShortCount}" />
+                <DataGridTextColumn Header="Loss Short(#)" Binding="{Binding LossShortCount}" />
+                <DataGridTextColumn Header="Win rate(%)" Binding="{Binding WinRate}" />
+
+                <DataGridTextColumn Header="Win Long($)" Binding="{Binding WinLong}" />
+                <DataGridTextColumn Header="Loss Long($)" Binding="{Binding LossLong}" />
+                <DataGridTextColumn Header="Win Short($)" Binding="{Binding WinShort}" />
+                <DataGridTextColumn Header="Loss Short($)" Binding="{Binding LossShort}" />
+                <DataGridTextColumn Header="Commissions Open($)" Binding="{Binding TotalCommisionOpen}" />
+                <DataGridTextColumn Header="Commissions Close($)" Binding="{Binding TotalCommisionClose}" />
+                <DataGridTextColumn Header="Spread($)" Binding="{Binding TotalSpread}" />
+                <DataGridTextColumn Header="Total Fees($)" Binding="{Binding TotalFees}" />
+                <DataGridTextColumn Header="Average RRR" Binding="{Binding AverageRRR}" />
+
+                <DataGridTextColumn Header="Best Trade($)" Binding="{Binding BestTrade}" />
+                <DataGridTextColumn Header="Best Trade(%)" Binding="{Binding BestTradePCT}" />
+                <DataGridTextColumn Header="Worst Trade($)" Binding="{Binding WorstTrade}" />
+                <DataGridTextColumn Header="Worst Trade(%)" Binding="{Binding WorstTradePCT}" />
+                <DataGridTextColumn Header="Longest Win Streak" Binding="{Binding LongestWinStreak}" />
+                <DataGridTextColumn Header="Longest Lose Streak" Binding="{Binding LongestLoseStreak}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

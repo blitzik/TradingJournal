@@ -182,9 +182,9 @@ namespace intf.Views
         }
 
 
-        private SignalFacade _signalFacade;
-        private MarketFacade _marketFacade;
-        private TradeFacade _tradeFacade;
+        private readonly SignalFacade _signalFacade;
+        private readonly MarketFacade _marketFacade;
+        private readonly TradeFacade _tradeFacade;
 
         public NewTradeViewModel(
             SignalFacade signalFacade,

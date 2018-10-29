@@ -34,7 +34,7 @@ namespace intf.Views
         }
         
 
-        private SignalFacade _signalFacade;
+        private readonly SignalFacade _signalFacade;
 
         public SignalsViewModel(SignalFacade signalFacade)
         {

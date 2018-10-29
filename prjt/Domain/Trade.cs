@@ -153,6 +153,12 @@ namespace prjt.Domain
         }
 
 
+        public bool IsWin
+        {
+            get { return _profitLoss > 0; }
+        }
+
+
         private double? _stopLoss;
         public double? StopLoss
         {
@@ -219,12 +225,6 @@ namespace prjt.Domain
             CommissionOpen = CommissionOpen;
             StopLoss = stopLoss;
             TargetProfit = targetProfit;
-        }
-
-
-        public bool IsWin()
-        {
-            return _profitLoss > 0;
         }
 
 

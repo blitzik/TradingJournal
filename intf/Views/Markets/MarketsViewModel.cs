@@ -33,7 +33,7 @@ namespace intf.Views
         }
 
 
-        private MarketFacade _marketFacade;
+        private readonly MarketFacade _marketFacade;
 
         public MarketsViewModel(MarketFacade marketFacade)
         {
