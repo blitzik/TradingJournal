@@ -101,7 +101,7 @@ namespace prjt.Domain
 
         public double WinRate
         {
-            get { return ((WinLongCount + WinShortCount) / TotalTradesCount) * 100; }
+            get { return ((WinLongCount + WinShortCount) / (double)TotalTradesCount) * 100; }
         }
 
 
@@ -152,19 +152,19 @@ namespace prjt.Domain
         // fees
 
 
-        private double _totalCommisionOpen;
-        public double TotalCommisionOpen
+        private double _totalCommissionOpen;
+        public double TotalCommissionOpen
         {
-            get { return _totalCommisionOpen; }
-            private set { Set(ref _totalCommisionOpen, value); }
+            get { return _totalCommissionOpen; }
+            private set { Set(ref _totalCommissionOpen, value); }
         }
 
 
-        private double _totalCommisionClose;
-        public double TotalCommisionClose
+        private double _totalCommissionClose;
+        public double TotalCommissionClose
         {
-            get { return _totalCommisionClose; }
-            private set { Set(ref _totalCommisionClose, value); }
+            get { return _totalCommissionClose; }
+            private set { Set(ref _totalCommissionClose, value); }
         }
 
 
@@ -178,7 +178,7 @@ namespace prjt.Domain
 
         public double TotalFees
         {
-            get { return TotalCommisionOpen + TotalCommisionClose + TotalSpread; }
+            get { return TotalCommissionOpen + TotalCommissionClose + TotalSpread; }
         }
 
 
@@ -321,10 +321,14 @@ namespace prjt.Domain
 
         public void AddTrade(Trade trade)
         {
+            if (TotalTradesCount == 0) { // otherwise it wont calculate longest win streak right
+                IsWinningStreak = trade.IsWin;
+            }
+
             TotalTradesCount += 1;
             TotalNetPL += trade.ProfitLoss;
-            TotalCommisionOpen += trade.CommissionOpen;
-            TotalCommisionClose += trade.CommissionClose;
+            TotalCommissionOpen += trade.CommissionOpen;
+            TotalCommissionClose += trade.CommissionClose;
             TotalSpread += trade.Spread;
 
             if (trade.ExpectedRiskRewardRatio != null) {
@@ -375,12 +379,12 @@ namespace prjt.Domain
             double bwTradePCT = (trade.ProfitLoss / trade.AccountBalanceBeforeTrade) * 100;
             if (BestTrade < trade.ProfitLoss) {
                 BestTrade = trade.ProfitLoss;
-                BestTradePCT = bwTradePCT;
+                BestTradePCT = (bwTradePCT < 0) ? bwTradePCT * (-1) : bwTradePCT;
             }
 
             if (WorstTrade > trade.ProfitLoss) {
                 WorstTrade = trade.ProfitLoss;
-                WorstTradePCT = bwTradePCT;
+                WorstTradePCT = (bwTradePCT > 0) ? bwTradePCT * (-1) : bwTradePCT;
             }
         }
     }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.ExtensionMethods;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace intf.Views
 {
@@ -106,6 +107,10 @@ namespace intf.Views
             Years = new ObservableCollection<int>(_tradeFacade.GetYears().Reverse());
             _selectedYearIndex = 0;
 
+            if (Years.Count == 0) {
+                return;
+            }
+
             _months = new List<string>(DateTimeFormatInfo.CurrentInfo.MonthNames);
             _months.Reverse();
             _months.Insert(0, "Entire Year");
@@ -117,7 +122,8 @@ namespace intf.Views
             Days = new ObservableCollection<string>() { "Select a month" };
             _selectedDayIndex = 0;
 
-            Trades = new ObservableCollection<Trade>(LoadTrades(Years[SelectedYearIndex], SelectedMonthIndex, SelectedDayIndex));
+            IEnumerable<Trade> trades = LoadTrades(Years[SelectedYearIndex], SelectedMonthIndex, SelectedDayIndex);
+            Trades = new ObservableCollection<Trade>(trades);
         }
 
 

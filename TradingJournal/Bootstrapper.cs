@@ -25,6 +25,7 @@ using intf.Subscribers.Accounts;
 using System.IO;
 using prjt.Services.Entities;
 using intf.Subscribers.Signals;
+using prjt.Services.Generators;
 
 namespace TradingJournal
 {
@@ -71,6 +72,7 @@ namespace TradingJournal
             _container.Singleton<PerstStorageFactory>();
             _container.Singleton<StoragePool>();
             _container.Singleton<IIODialogService, FilePathDialogService>();
+            _container.Singleton<TradesDataGenerator>();
 
             // Factories
             _container.Singleton<SignalFactory>();
@@ -92,6 +94,7 @@ namespace TradingJournal
             _container.PerRequest<SignalFormViewModel>();
             _container.PerRequest<MarketFormViewModel>();
             _container.PerRequest<ConfirmationViewModel>();
+            _container.PerRequest<ProgressViewModel>();
 
             _container.Singleton<DashboardViewModel>();
             _container.Singleton<MarketsViewModel>();
@@ -119,7 +122,8 @@ namespace TradingJournal
             try {
                 Storage profilesStorage = _container.GetInstance<PerstStorageFactory>()
                                                     .OpenConnection<AccountsRoot>(
-                                                        Path.Combine(PerstStorageFactory.GetDatabaseDirectoryPath(), string.Format("{0}.{1}", DatabaseNames.ACCOUNTS, PerstStorageFactory.DATABASE_EXTENSION))
+                                                        Path.Combine(PerstStorageFactory.GetDatabaseDirectoryPath(), string.Format("{0}.{1}", DatabaseNames.ACCOUNTS, PerstStorageFactory.DATABASE_EXTENSION)),
+                                                        200 * 1024 * 1024
                                                     );
                 StoragePool sp = _container.GetInstance<StoragePool>();
                 sp.Add(DatabaseNames.ACCOUNTS, profilesStorage);

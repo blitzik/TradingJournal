@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="intf.Views.ProgressView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:intf.Views"
+             mc:Ignorable="d" d:DesignWidth="300">
+
+    <Border MinWidth="500" Padding="15" Background="#FFF">
+        <StackPanel>
+            <TextBlock Margin="0 0 0 10" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" FontSize="19" />
+            <ProgressBar Height="50" Minimum="0" Maximum="100" IsIndeterminate="True" />
+        </StackPanel>
+    </Border>
+
+</UserControl>

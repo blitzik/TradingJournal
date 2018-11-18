@@ -105,6 +105,7 @@
     <Compile Include="BaseViewModels\ISecondNavigationViewModel.cs" />
     <Compile Include="BaseViewModels\IViewModel.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\DoubleToPercentConverter.cs" />
     <Compile Include="Converters\IntToMonthNameConverter.cs" />
     <Compile Include="Converters\IntToTimeConverter.cs" />
     <Compile Include="Converters\InverseBooleansToBooleanConverter.cs" />
@@ -178,6 +179,10 @@
       <DependentUpon>NewTradeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NewTrade\NewTradeViewModel.cs" />
+    <Compile Include="Views\ProgressBar\ProgressView.xaml.cs">
+      <DependentUpon>ProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProgressBar\ProgressViewModel.cs" />
     <Compile Include="Views\SignalForm\SignalFormView.xaml.cs">
       <DependentUpon>SignalFormView.xaml</DependentUpon>
     </Compile>
@@ -266,6 +271,10 @@
     <Page Include="Views\NewTrade\NewTradeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProgressBar\ProgressView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SignalForm\SignalFormView.xaml">
       <SubType>Designer</SubType>

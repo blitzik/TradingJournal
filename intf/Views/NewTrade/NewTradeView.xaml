@@ -44,10 +44,7 @@
 
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Direction" />
-                            <ComboBox SelectedIndex="0">
-                                <ComboBoxItem Content="LONG (buy)" />
-                                <ComboBoxItem Content="SHORT (sell)" />
-                            </ComboBox>
+                            <ComboBox ItemsSource="{Binding Directions}" SelectedValue="{Binding SelectedDirection, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </Grid>
                     

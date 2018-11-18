@@ -86,6 +86,14 @@ namespace intf.Views
         }
 
 
+        private List<Direction> _directions;
+        public List<Direction> Directions
+        {
+            get { return _directions; }
+            set { Set(ref _directions, value); }
+        }
+
+
         private Direction _selectedDirection;
         public Direction SelectedDirection
         {
@@ -173,8 +181,8 @@ namespace intf.Views
             {
                 if (_saveTradeCommand == null) {
                     _saveTradeCommand = new DelegateCommand<object>(
-                        p => SaveTrade(),
-                        p => SelectedSignal != 0 && SelectedMarket != 0
+                        p => SaveTrade()/*,
+                        p => SelectedSignal != 0 && SelectedMarket != 0*/
                     );
                 }
                 return _saveTradeCommand;
@@ -202,6 +210,12 @@ namespace intf.Views
         protected override void OnInitialize()
         {
             base.OnInitialize();
+
+            Directions = new List<Direction>() {
+                Direction.LONG,
+                Direction.SHORT
+            };
+            SelectedDirection = Direction.LONG;
 
             _signals = new ObservableCollection<Signal>(_signalFacade.FindSignals());
             _signals.Insert(0, _promptSignal);
@@ -252,7 +266,12 @@ namespace intf.Views
 
             _tradeFacade.SaveTrade(t);*/
 
-            _tradeFacade.GenerateData();
+            ProgressViewModel vm = PrepareViewModel<ProgressViewModel>();
+            Overlay.DisplayOverlay(vm, true);
+            Task.Factory.StartNew(() => {
+                _tradeFacade.GenerateData();
+                Overlay.HideOverlay();
+            });
         }
     }
 }

@@ -98,6 +98,7 @@
     <Compile Include="Services\Entities\BaseEntityFactory.cs" />
     <Compile Include="Services\Entities\MarketFactory.cs" />
     <Compile Include="Services\Entities\SignalFactory.cs" />
+    <Compile Include="Services\Generators\TradesDataGenerator.cs" />
     <Compile Include="Services\Identity\Identity.cs" />
     <Compile Include="Services\Identity\IIdentity.cs" />
     <Compile Include="Services\DatabaseNames.cs" />

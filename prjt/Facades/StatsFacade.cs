@@ -22,6 +22,12 @@ namespace prjt.Facades
         }
 
 
+        public void Commit()
+        {
+            AccountDataStorage().Commit();
+        }
+
+
         public IEnumerable<Stats> FindStats()
         {
             IEnumerable<Stats> stats = from Stats s in AccountDataRoot().TradeStats
